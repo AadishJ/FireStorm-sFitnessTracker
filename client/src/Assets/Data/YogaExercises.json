@@ -1,0 +1,37 @@
+{
+    "types": [
+        "Standing",
+        "Sitting",
+        "Prone",
+        "Supine"
+    ],
+    "Standing": [
+        "Mountain Pose",
+        "Warrior I",
+        "Warrior II",
+        "Tree Pose",
+        "Triangle Pose",
+        "Half Moon Pose"
+    ],
+    "Sitting": [
+        "Seated Forward Bend",
+        "Bound Angle Pose",
+        "Easy Pose",
+        "Hero Pose",
+        "Cow Face Pose"
+    ],
+    "Prone": [
+        "Cobra Pose",
+        "Locust Pose",
+        "Bow Pose",
+        "Upward-Facing Dog",
+        "Dolphin Pose"
+    ],
+    "Supine": [
+        "Bridge Pose",
+        "Fish Pose",
+        "Supine Twist",
+        "Happy Baby Pose",
+        "Reclining Bound Angle Pose"
+    ]
+}

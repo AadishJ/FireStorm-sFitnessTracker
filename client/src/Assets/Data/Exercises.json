@@ -1,0 +1,10 @@
+{
+    "bodyParts": ["Abs", "Back", "Biceps", "Chest", "Legs", "Shoulder", "Triceps"],
+    "Abs": ["Plank", "Leg Raises"],
+    "Back": ["Pull-ups", "Deadlift", "Rows"],
+    "Biceps": ["Bicep Curls", "Hammer Curls", "Concentration Curls"],
+    "Chest": ["Bench Press", "Push-ups", "Chest Fly"],
+    "Legs": ["Squats", "Lunges", "Leg Press"],
+    "Shoulder": ["Shoulder Press", "Lateral Raise", "Front Raise"],
+    "Triceps": ["Tricep Dips", "Overhead Tricep Extension", "Tricep Kickbacks"]
+}

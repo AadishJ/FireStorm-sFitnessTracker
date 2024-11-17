@@ -1,0 +1,109 @@
+{
+    "meal": [
+        "Breakfast",
+        "Lunch",
+        "Dinner"
+    ],
+    "Breakfast": [
+        {
+            "name": "Oatmeal",
+            "calories": 150
+        },
+        {
+            "name": "Scrambled Eggs",
+            "calories": 200
+        },
+        {
+            "name": "Avocado Toast",
+            "calories": 250
+        },
+        {
+            "name": "Smoothie Bowl",
+            "calories": 300
+        },
+        {
+            "name": "Greek Yogurt with Berries",
+            "calories": 180
+        },
+        {
+            "name": "Pancakes",
+            "calories": 350
+        },
+        {
+            "name": "Whole Wheat Toast",
+            "calories": 120
+        },
+        {
+            "name": "Chia Pudding",
+            "calories": 200
+        }
+    ],
+    "Lunch": [
+        {
+            "name": "Grilled Chicken Salad",
+            "calories": 400
+        },
+        {
+            "name": "Quinoa Bowl with Vegetables",
+            "calories": 350
+        },
+        {
+            "name": "Turkey Sandwich",
+            "calories": 300
+        },
+        {
+            "name": "Veggie Wrap",
+            "calories": 250
+        },
+        {
+            "name": "Lentil Soup",
+            "calories": 200
+        },
+        {
+            "name": "Tuna Salad",
+            "calories": 350
+        },
+        {
+            "name": "Hummus and Veggies",
+            "calories": 250
+        },
+        {
+            "name": "Chicken Caesar Salad",
+            "calories": 450
+        }
+    ],
+    "Dinner": [
+        {
+            "name": "Grilled Salmon",
+            "calories": 500
+        },
+        {
+            "name": "Steak with Roasted Vegetables",
+            "calories": 600
+        },
+        {
+            "name": "Stir-Fried Tofu and Vegetables",
+            "calories": 350
+        },
+        {
+            "name": "Chicken Stir-Fry",
+            "calories": 400
+        },
+        {
+            "name": "Baked Sweet Potatoes",
+            "calories": 200
+        },
+        {
+            "name": "Vegetable Curry",
+            "calories": 300
+        },
+        {
+            "name": "Pasta with Marinara Sauce",
+            "calories": 400
+        },
+        {
+            "name": "Grilled Chicken with Brown Rice",
+            "calories": 450
+        }
+    ]
+}

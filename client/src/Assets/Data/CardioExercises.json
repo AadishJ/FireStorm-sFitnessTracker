@@ -1,0 +1,36 @@
+{
+    "types": [
+        "Endurance",
+        "High-Intensity",
+        "Low-Impact",
+        "Sports-Based"
+    ],
+    "Endurance": [
+        "Running",
+        "Cycling",
+        "Swimming",
+        "Rowing",
+        "Jump Rope"
+    ],
+    "High-Intensity": [
+        "Sprint Intervals",
+        "Burpees",
+        "Mountain Climbers",
+        "High Knees",
+        "Battle Ropes"
+    ],
+    "Low-Impact": [
+        "Walking",
+        "Elliptical Trainer",
+        "Step-Ups",
+        "Stationary Cycling",
+        "Water Aerobics"
+    ],
+    "Sports-Based": [
+        "Basketball",
+        "Soccer",
+        "Tennis",
+        "Boxing",
+        "Kickboxing"
+    ]
+}

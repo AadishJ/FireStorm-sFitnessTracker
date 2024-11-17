@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .scrollbar-thin {
+      scrollbar-width: thin;
+    }
+    .scrollbar-thumb-darkPurple {
+      scrollbar-color: #4B0082 #ffffff; /* Dark purple thumb, white track */
+    }
+    .scrollbar-thumb-darkPurple::-webkit-scrollbar {
+      width: 8px;
+    }
+    .scrollbar-thumb-darkPurple::-webkit-scrollbar-thumb {
+      background-color: #4B0082;
+      border-radius: 10px;
+    }
+  }
