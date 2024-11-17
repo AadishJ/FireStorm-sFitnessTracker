@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axiosInstance";
 import Exercises from "../../Assets/Data/Exercises.json";
 import { useAuth } from "../../Context/AuthContext";
 function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, exerciseAdded } )

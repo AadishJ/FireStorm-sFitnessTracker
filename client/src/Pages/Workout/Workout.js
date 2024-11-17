@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import ExerciseSelector from "./ExerciseSelector";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axiosInstance";
 import { useAuth } from "../../Context/AuthContext";
 function Workout ()
 {
@@ -56,7 +56,7 @@ function Workout ()
             }
             fetchData();
         }
-    }, [exerciseAdded,handleLogout,navigate ] );
+    }, [ exerciseAdded, handleLogout, navigate ] );
 
     const render = () =>
     {

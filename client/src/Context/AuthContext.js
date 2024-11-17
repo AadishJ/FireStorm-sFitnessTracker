@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import axios from "axios";
+import axios from "../../axiosInstance";
 
 const AuthContext = createContext();
 
@@ -26,7 +26,7 @@ export const AuthProvider = ( { children, navigate } ) =>
             alert( err?.response?.data?.message );
         }
         localStorage.removeItem( "workoutName" );
-        localStorage.removeItem("yogaWorkoutName")
+        localStorage.removeItem( "yogaWorkoutName" )
         localStorage.removeItem( "userName" );
         changeAuthenticated( false );
         setTimeout( () => navigate( "/" ), 100 );

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axiosInstance";
 import DietData from "../../Assets/Data/Diet.json";
 import { useAuth } from "../../Context/AuthContext";
 import { useEffect } from "react";

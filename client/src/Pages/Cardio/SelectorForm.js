@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axiosInstance";
 import Exercises from "../../Assets/Data/CardioExercises.json";
 import { useAuth } from "../../Context/AuthContext";
 function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, exerciseAdded } )
@@ -87,16 +87,16 @@ function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, ex
                         <label>Duration</label>
                         <div className="flex flex-col gap-1">
                             <div>
-                            <label className="mr-4" htmlFor="">Hrs:</label>
-                            <input type="number" name="hr" required id="hr" value={ formData.hr } onChange={ handleChange } className="border p-2 rounded w-20 text-black" />
+                                <label className="mr-4" htmlFor="">Hrs:</label>
+                                <input type="number" name="hr" required id="hr" value={ formData.hr } onChange={ handleChange } className="border p-2 rounded w-20 text-black" />
                             </div>
                             <div>
-                            <label className="mr-4" htmlFor="">Min:</label>
-                            <input type="number" name="min" required id="min" value={ formData.min } onChange={ handleChange } className="border p-2 rounded w-20 text-black" />
+                                <label className="mr-4" htmlFor="">Min:</label>
+                                <input type="number" name="min" required id="min" value={ formData.min } onChange={ handleChange } className="border p-2 rounded w-20 text-black" />
                             </div>
                             <div>
-                            <label className="mr-4" htmlFor="">Sec:</label>
-                            <input type="number" name="sec" required id="sec" value={ formData.sec } onChange={ handleChange } className="border p-2 rounded w-20 text-black" />
+                                <label className="mr-4" htmlFor="">Sec:</label>
+                                <input type="number" name="sec" required id="sec" value={ formData.sec } onChange={ handleChange } className="border p-2 rounded w-20 text-black" />
                             </div>
                         </div>
                         <label>Sets</label>

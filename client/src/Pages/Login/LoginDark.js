@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axiosInstance";
 import { useState } from "react";
 import { MdEmail, MdPassword } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";

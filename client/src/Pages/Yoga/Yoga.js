@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import ExerciseSelector from "./ExerciseSelector";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axiosInstance";
 import { useAuth } from "../../Context/AuthContext";
 
 function Yoga ()
@@ -57,7 +57,7 @@ function Yoga ()
             }
             fetchData();
         }
-    }, [ logoutHandle,navigate, exerciseAdded ] );
+    }, [ logoutHandle, navigate, exerciseAdded ] );
 
     const render = () =>
     {

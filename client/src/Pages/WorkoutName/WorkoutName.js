@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from "../../axiosInstance";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
 function WorkoutName ()
 {
-    const {handleLogout} = useAuth();
+    const { handleLogout } = useAuth();
     const navigate = useNavigate();
     const [ workoutName, setWorkoutName ] = useState( "" );
     const [ allWorkoutNames, setAllWorkoutNames ] = useState( [] );
@@ -39,7 +39,7 @@ function WorkoutName ()
             }
         };
         getWorkoutNames();
-    }, [ navigate,handleLogout ] );
+    }, [ navigate, handleLogout ] );
     const handleOptionChange = ( e ) =>
     {
         setWorkoutName( e.target.value );

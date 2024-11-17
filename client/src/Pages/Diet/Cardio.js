@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import ExerciseSelector from "./ExerciseSelector";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axiosInstance";
 import { useAuth } from "../../Context/AuthContext";
 
 function Cardio ()
@@ -87,8 +87,8 @@ function Cardio ()
             <div className="h-screen w-full flex justify-center  mt-32 ">
                 <div className="flex flex-col gap-4 items-center">
                     <div className="flex justify-between w-full items-center">
-                    <div className="text-white text-2xl mb-4 self-center">Currently Editing: { formValues.name }</div>
-                    <div className="text-white text-md mb-4 hover:underline cursor-pointer" onClick={handleChangeSchedule}>Change Selected Schedule</div>
+                        <div className="text-white text-2xl mb-4 self-center">Currently Editing: { formValues.name }</div>
+                        <div className="text-white text-md mb-4 hover:underline cursor-pointer" onClick={ handleChangeSchedule }>Change Selected Schedule</div>
                     </div>
                     <div className="flex gap-2 text-white justify-center">
                         { week.map( ( day ) => (

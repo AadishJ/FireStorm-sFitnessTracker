@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from "../../axiosInstance";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
 function DietName ()
 {
-    const {handleLogout} = useAuth();
+    const { handleLogout } = useAuth();
     const navigate = useNavigate();
     const [ planName, setPlanName ] = useState( "" );
     const [ allPlanNames, setAllPlanNames ] = useState( [] );
@@ -39,7 +39,7 @@ function DietName ()
             }
         };
         getPlanNames();
-    }, [ navigate,handleLogout ] );
+    }, [ navigate, handleLogout ] );
     const handleOptionChange = ( e ) =>
     {
         setPlanName( e.target.value );

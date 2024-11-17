@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import FoodSelector from "./FoodSelector";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axiosInstance";
 import { useAuth } from "../../Context/AuthContext";
 
 function Diet ()
@@ -110,13 +110,13 @@ function Diet ()
                                         } else
                                         {
                                             return null;
-                                            }
+                                        }
                                     } else
                                     {
                                         return null;
                                     }
                                 } ) }
-                                    <div className="bg-test w-full h-8 text-black font-roboto font-semibold flex items-center justify-center">LUNCH</div>
+                                <div className="bg-test w-full h-8 text-black font-roboto font-semibold flex items-center justify-center">LUNCH</div>
                                 { schedule.map( ( food ) =>
                                 {
                                     if ( food.day === day )
@@ -131,7 +131,7 @@ function Diet ()
                                         } else
                                         {
                                             return null;
-                                            }
+                                        }
                                     } else
                                     {
                                         return null;
@@ -152,7 +152,7 @@ function Diet ()
                                         } else
                                         {
                                             return null;
-                                            }
+                                        }
                                     } else
                                     {
                                         return null;
