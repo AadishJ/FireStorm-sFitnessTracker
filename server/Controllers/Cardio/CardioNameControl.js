@@ -16,7 +16,12 @@ async function handleCardioNameGet ( req, res )
 async function handleCardioNamePost ( req, res )
 {
     const userId = req.user._id;
-    const name  = req.body.value;
+    const name = req.body.value;
+    const result = await cardioName.findOne( { userId, name } );
+    if(result)
+    {
+        return res.status( 409 ).json( { message: "Workout Name Already exists" } );
+    }
     try {
         const reqName = await cardioName.create( { userId,name } );
         return res.status( 200 ).json({message:"Workout Created"});

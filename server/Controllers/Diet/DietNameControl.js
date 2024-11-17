@@ -17,6 +17,11 @@ async function handleDietNamePost ( req, res )
 {
     const userId = req.user._id;
     const name = req.body.value;
+    const result = await dietName.findOne( { userId, name } );
+    if ( result )
+    {
+        return res.status( 409 ).json( { message: "Plan Name Already exists" } );
+    }
     try
     {
         const reqName = await dietName.create( { userId, name } );

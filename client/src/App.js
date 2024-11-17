@@ -20,6 +20,8 @@ import CardioName from './Pages/CardioName/CardioName';
 import Profile from './Pages/Profile/Profile';
 import Diet from './Pages/Diet/Diet';
 import DietName from './Pages/DietName/DietName';
+import Error404 from './Pages/Error404/Error404';
+import Schedule from './Pages/Schedule/Schedule';
 
 function App ()
 {
@@ -33,13 +35,15 @@ function App ()
         <Route path="/signup" element={<SignupDark />} />
         <Route path="/login" element={<LoginDark />} />
         <Route path="/faq" element={ <Faq /> } />
-        
+        <Route path="*" element={<Error404/>} />
+
         <Route element={<PrivateRoute element={<DashboardLayout />} />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/workout" element={<Workout />} />
           <Route path="/yoga" element={ <Yoga /> } />
           <Route path="/cardio" element={ <Cardio /> } />
           <Route path="/diet" element={ <Diet /> } />
+          <Route path="/schedule" element={<Schedule/>} />
           <Route path="/workout/name" element={ <WorkoutName /> } />
           <Route path="/yoga/name" element={ <YogaName /> } />
           <Route path="/cardio/name" element={ <CardioName /> } />
