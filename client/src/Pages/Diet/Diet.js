@@ -116,7 +116,7 @@ function Diet ()
                                         return null;
                                     }
                                 } ) }
-                                <div className="bg-test w-full h-8 text-black font-roboto font-semibold flex items-center justify-center">LUNCH</div>
+                                <div className="bg-filterPink w-full h-8 text-black font-roboto font-semibold flex items-center justify-center">LUNCH</div>
                                 { schedule.map( ( food ) =>
                                 {
                                     if ( food.day === day )

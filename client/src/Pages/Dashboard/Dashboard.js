@@ -30,10 +30,10 @@ function Dashboard ()
             <div className="ml-36 mt-24 font-roboto text-2xl text-white">{ greeting }, { name }</div>
             <div className="h-fit w-max-full ml-52 mt-16 flex flex-col gap-10">
                 <div className="text-center w-3/5 text-4xl font-bold h-0 text-white font-outfit">Today's Progress</div>
-                <div className="flex items-center justify-between w-full">
+                <div className="flex items-center justify-between w-full gap-4">
                     <div className="flex gap-8">
                         <div className="w-64 h-64 flex flex-col gap-4 items-center justify-center">
-                            <ProgressCircles text={ "Workout" } percentage={ 40 } color="magenta" />
+                            <ProgressCircles text={ "Workout" } percentage={ 40 } color="#FF0090" />
                         </div>
                         <div className="w-64 h-64 flex flex-col gap-4 items-center justify-center">
                             <ProgressCircles text={ "Cardio" } percentage={ 80 } color="cyan" />

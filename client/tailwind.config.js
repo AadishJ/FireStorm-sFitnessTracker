@@ -21,6 +21,7 @@ module.exports = {
         customGray: "#D3D3D3",
         customGray2: "#A7A7A7",
         test: "#e600e6",
+        filterPink: "#FF0080",
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],

@@ -22,6 +22,7 @@ const YogaRouter = require( "./Routes/YogaRoute" );
 const CardioRouter = require( "./Routes/CardioRoute" );
 const ProfileRouter = require( "./Routes/ProfileRoute" );
 const DietRouter = require( "./Routes/DIetRoute" );
+const ScheduleRouter = require( "./Routes/ScheduleRoute" );
 
 
 const { checkAuth } = require( "./Middlewares/Authenticator" )
@@ -39,5 +40,6 @@ app.use( "/yoga", checkAuth, YogaRouter );
 app.use( "/cardio", checkAuth, CardioRouter );
 app.use( "/profile", checkAuth, ProfileRouter );
 app.use( "/diet", checkAuth, DietRouter );
+app.use( "/schedule", checkAuth, ScheduleRouter );
 
 app.listen( PORT, () => console.log( "Server Started on", PORT ) );

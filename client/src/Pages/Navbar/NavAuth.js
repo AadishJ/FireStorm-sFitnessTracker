@@ -2,13 +2,29 @@ import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { FaDumbbell } from "react-icons/fa";
 import DateSelector from "./DateSelector";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 function NavAuth ()
 {
     const name = localStorage.getItem( "userName" );
     const firstLetter = name.charAt( 0 ).toUpperCase();
+    const location = useLocation();
+    useEffect( () =>
+    {
+        const navbar = document.querySelector( '.navbar' );
+        if ( location.pathname === '/schedule' )
+        {
+            navbar.classList.add( 'bg-anotherPurple' );
+            navbar.classList.remove( 'bg-backPurple' );
+        } else
+        {
+            navbar.classList.add( 'bg-backPurple' );
+            navbar.classList.remove( 'bg-backLightPurple' );
+        }
+    }, [ location ] );
     return (
-        <div className="fixed top-0 z-10 w-full bg-backPurple shadow-lg">
+        <div className="navbar fixed top-0 z-10 w-full shadow-lg">
             <div className="text-white flex justify-between items-center mx-8 my-4">
                 <Link to="/">
                     <div className="flex flex-col items-center font-medium">

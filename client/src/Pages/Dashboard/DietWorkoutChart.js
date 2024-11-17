@@ -17,7 +17,7 @@ function DietWorkoutChart ()
             {
                 label: "Workout",
                 data: [ 30, 60, 90, 40, 50, 70, 80 ],
-                backgroundColor: "magenta",
+                backgroundColor: "#FF0080",
                 borderColor: "black",
                 borderWidth: 1,
                 borderRadius: 20, // Add this line

@@ -22,6 +22,7 @@ import Diet from './Pages/Diet/Diet';
 import DietName from './Pages/DietName/DietName';
 import Error404 from './Pages/Error404/Error404';
 import Schedule from './Pages/Schedule/Schedule';
+import ScrollToTop from './RouteHandler/ScrollToTop';
 
 function App ()
 {
@@ -58,6 +59,7 @@ function App ()
 }
 const Root = () => (
   <Router>
+    <ScrollToTop/>
     <App />
   </Router>
 );

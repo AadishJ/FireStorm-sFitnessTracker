@@ -1,4 +1,3 @@
-// import exercise from "../Assets/Images/dumbbell-bicep-curl.webp"   
 function ScheduleCard ()
 {
     return (
