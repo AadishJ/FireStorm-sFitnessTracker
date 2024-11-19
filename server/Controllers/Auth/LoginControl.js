@@ -31,7 +31,8 @@ async function handleLoginPost ( req, res )
                         httpOnly: true,
                         secure: true, // Ensure this is true if you're using HTTPS
                         sameSite: 'None'
-                    });                    return res.status( 200 ).json( { message: "Logged In Successfully", jwtToken: token, name: reqUser.name } );
+                    } );
+                    return res.status( 200 ).json( { message: "Logged In Successfully", jwtToken: token, name: reqUser.name } );
                 } else
                 {
                     return res.status( 400 ).json( { message: "Wrong Password" } );
@@ -48,7 +49,8 @@ async function handleLoginPost ( req, res )
                 httpOnly: true,
                 secure: true, // Ensure this is true if you're using HTTPS
                 sameSite: 'None'
-            });            return res.status( 200 ).json( { message: "Logged In Successfully", jwtToken: token, name: reqUser.name } );
+            } );
+            return res.status( 200 ).json( { message: "Logged In Successfully", jwtToken: token, name: reqUser.name } );
         }
     } catch ( err )
     {

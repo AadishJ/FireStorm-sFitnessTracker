@@ -1,5 +1,6 @@
 const user = require( "../../Models/User" );
 const bcrypt = require( "bcrypt" );
+const { setUser } = require( "../../Service/Authentication" );
 async function handleSignupGet ( req, res )
 {
     return res.status( 200 );
@@ -30,6 +31,13 @@ async function handleSignupPost ( req, res )
         try
         {
             const reqUser = await user.create( { name, email, isGoogle } );
+            const token = setUser( reqUser );
+            res.cookie( "uid", token, {
+                maxAge: 24 * 60 * 60 * 1000,
+                httpOnly: true,
+                secure: true, // Ensure this is true if you're using HTTPS
+                sameSite: 'None'
+            } );
             return res.status( 201 ).json( { message: "Signed Up Successfully." } );
         } catch ( err )
         {

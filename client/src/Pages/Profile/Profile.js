@@ -26,7 +26,11 @@ function Profile ()
                 } )
                 const profile = res.data.profile;
                 const name = localStorage.getItem( "userName" );
-                setFormValues( { name, gender: profile.gender, age: profile.age, height: profile.height, weight: profile.weight, goal: profile.goal, activityLevel: profile.activityLevel } );
+                if ( !profile )
+                {
+                    setFormValues( { name } );
+                }else
+                    setFormValues( { name, gender: profile.gender, age: profile.age, height: profile.height, weight: profile.weight, goal: profile.goal, activityLevel: profile.activityLevel } );
             } catch ( err )
             {
                 alert( err?.response?.data.message );
