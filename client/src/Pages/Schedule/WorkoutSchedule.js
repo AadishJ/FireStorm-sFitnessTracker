@@ -7,7 +7,8 @@ function WorkoutSchedule ({gymSchedule, yogaSchedule,handleClick})
                 { gymSchedule.map( ( { _id, exercise } ) =>
                 {
                     return (
-                        <div key={ _id } className="w-4/5 h-20 bg-pink-600 m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={ () => handleClick( _id,"gym" ) }>
+                        
+                        <div key={ _id } data-id={_id} className="w-4/5 h-20 bg-pink-600 m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={ (e) => handleClick(e.currentTarget.dataset.id,exercise,"gym" ) }>
                             <div className="ml-2">{ exercise }</div>
                             <input type="checkbox" className=" w-5 h-5 mr-5 border-white" onClick={ ( e ) => e.stopPropagation() }/>
                         </div>
@@ -17,7 +18,7 @@ function WorkoutSchedule ({gymSchedule, yogaSchedule,handleClick})
                 { yogaSchedule.map( ( { _id, exercise, } ) =>
                 {
                     return (
-                        <div key={ _id } className="w-4/5 h-20 bg-pink-600 m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={ () => handleClick( _id,"yoga" ) }>
+                        <div key={ _id } data-id={_id} className="w-4/5 h-20 bg-pink-600 m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={ ( e ) => handleClick(  e.currentTarget.dataset.id,exercise,"yoga" ) }>
                             <div className="ml-2">{ exercise }</div>
                             <input type="checkbox" className=" w-5 h-5 mr-5 border-white" onClick={ ( e ) => e.stopPropagation() }/>
                         </div>

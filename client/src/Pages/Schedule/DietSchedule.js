@@ -6,10 +6,11 @@ function DietSchedule ({ dietSchedule, handleClick })
                 <div className="text-black  border-b-2 w-80 text-center border-black">Breakfast</div>
                 { dietSchedule.map( ( { _id, food,meal } ) =>
                 {
+                    const id = _id;
                     if ( meal === "Breakfast" )
                     {
                         return (
-                            <div key={ _id } className="w-4/5 h-20 bg-cyan m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={ () => handleClick( _id,"diet" ) }>
+                            <div key={ id } data-id={ _id } className="w-4/5 h-20 bg-cyan m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={ ( e ) => handleClick( e.currentTarget.dataset.id,food,"diet" ) }>
                                 <div className="ml-2">{ food }</div>
                                 <input type="checkbox" className=" w-5 h-5 mr-5 border-white" onClick={ ( e ) => e.stopPropagation() }/>
                             </div>
@@ -25,7 +26,7 @@ function DietSchedule ({ dietSchedule, handleClick })
                     if ( meal === "Lunch" )
                     {
                         return (
-                            <div key={ _id } className="w-4/5 h-20 bg-cyan m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={ () => handleClick( _id,"diet" ) }>
+                            <div key={ _id } data-id={ _id } className="w-4/5 h-20 bg-cyan m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={ ( e ) => handleClick( e.currentTarget.dataset.id,food,"diet" ) }>
                                 <div className="ml-2">{ food }</div>
                                 <input type="checkbox" className=" w-5 h-5 mr-5 border-white" onClick={ ( e ) => e.stopPropagation() }/>
                             </div>
@@ -41,7 +42,7 @@ function DietSchedule ({ dietSchedule, handleClick })
                     if ( meal === "Dinner" )
                     {
                         return (
-                            <div key={ _id } className="w-4/5 h-20 bg-cyan m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={()=>handleClick(_id,"diet")}>
+                            <div key={ _id } data-id={_id} className="w-4/5 h-20 bg-cyan m-2 flex items-center justify-between rounded-md cursor-pointer" onClick={(e)=>handleClick(e.currentTarget.dataset.id,food,"diet")}>
                                 <div className="ml-2">{ food }</div>
                                 <input type="checkbox" className=" w-5 h-5 mr-5 border-white" onClick={ ( e ) => e.stopPropagation() }/>
                             </div>

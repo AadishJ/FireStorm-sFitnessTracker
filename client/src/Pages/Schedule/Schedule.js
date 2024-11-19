@@ -3,58 +3,60 @@ import getSchedule from "./GetSchedule";
 import WorkoutSchedule from "./WorkoutSchedule";
 import CardioSchedule from "./CardioSchedule";
 import DietSchedule from "./DietSchedule";
-import GymEditor from "../../UI/GymEditor";
-import YogaEditor from "../../UI/YogaEditor";
-import DietEditor from "../../UI/DietEditor";
-import CardioEditor from "../../UI/CardioEditor";
+import EditorSetup from "../../UI/EditorSetup";
+import { useDate } from "../../Context/DateContext";
+import { useAuth } from "../../Context/AuthContext";
 
 function Schedule ()
 {
+    const { selectedDate } = useDate();
+    const {handleLogout} = useAuth();
     const [ gymSchedule, setGymSchedule ] = useState( [] );
     const [ yogaSchedule, setYogaSchedule ] = useState( [] );
     const [ dietSchedule, setDietSchedule ] = useState( [] );
     const [ cardioSchedule, setCardioSchedule ] = useState( [] );
+    const [exercise,setExercise] = useState("");
     const [ editor, setEditor ] = useState( [ false, false, false, false ] );
     const [id,setId] = useState("");
     useEffect( () =>
     {
         const fetchData = async () =>
         {
-            const res = await getSchedule();
+            const res = await getSchedule(selectedDate,handleLogout);
             setGymSchedule( res.gymScheduleData );
             setYogaSchedule( res.yogaScheduleData );
             setDietSchedule( res.dietScheduleData );
             setCardioSchedule( res.cardioScheduleData );
         }
         fetchData();
-    }, [] );
+    }, [selectedDate,handleLogout] );
     const render = ()=>
     {
         if ( editor[0] )
         {
-            return <GymEditor id={ id } handleClose={ handleClose } />
+            return <EditorSetup type={ "gym" } id={ id } exercise={exercise} handleClose={ handleClose } editor={editor} setEditor={setEditor} />
         }
         else if ( editor[1] )
         {
-            return <YogaEditor id={id} handleClose={handleClose} />
+            return <EditorSetup type={ "yoga" } id={ id } exercise={exercise} handleClose={ handleClose } editor={ editor } setEditor={ setEditor } />
         }
         else if ( editor[2] )
         {
-            return <DietEditor id={id} handleClose={handleClose} />
+            return <EditorSetup type={ "diet" } id={ id } exercise={exercise} handleClose={ handleClose } editor={ editor } setEditor={ setEditor } />
         }
         else if ( editor[3] )
         {
-            return <CardioEditor id={id} handleClose={handleClose} />
+            return <EditorSetup type={ "cardio" } id={ id } exercise={exercise} handleClose={ handleClose } editor={ editor } setEditor={ setEditor } />
         }
     }
     const handleClose = () =>
     {
         setEditor([false,false,false,false]);
     }
-    const handleClick = (id,type) =>
+    const handleClick = (id,exercise,type) =>
     {
-        console.log( id, type );
-        setId(id);
+        setId( id );
+        setExercise( exercise );
         if ( type === "gym" )
         {
             setEditor([true,false,false,false]);
@@ -87,7 +89,7 @@ function Schedule ()
                                 Workout
                             </div>
                             <div className="text-sm flex gap-2 items-center hover:underline cursor-pointer hover:after:content-['ChangePlan']">
-                                Current Plan: { localStorage.getItem( "workoutName" ) }
+                                Current Plan: { localStorage.getItem( "workoutName" ) }, {localStorage.getItem( "yogaWorkoutName" )}
                             </div>
                         </div>
                             <WorkoutSchedule gymSchedule={ gymSchedule } yogaSchedule={ yogaSchedule } handleClick={handleClick} />

@@ -2,7 +2,9 @@ function DietEditor ()
 {
     return (
         <div>
-
+            <div>
+                DietEditor
+            </div>
         </div>
     );
 }

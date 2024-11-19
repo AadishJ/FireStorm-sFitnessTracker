@@ -1,10 +1,7 @@
 import axios from "../../axiosInstance";
-
-async function getSchedule ()
+async function getSchedule (selectedDate,handleLogout)
 {
-    const date = new Date(); // Current date
-    const dayNames = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
-    const dayName = dayNames[ date.getDay() ];
+    const dayName = selectedDate.toLocaleDateString( 'en-US', { weekday: 'long' } );
     try
     {
         const res = await axios.get( "/schedule", {
@@ -22,8 +19,14 @@ async function getSchedule ()
         return res.data;
     } catch ( err )
     {
+        if ( err?.response?.status === 404 )
+        {
+            alert( err?.response?.data?.message || "Cannot fetch schedule" );
+            await handleLogout();
+        }else
         alert(err?.response?.data?.message || "Cannot fetch schedule");
     }
+
 }
 
 export default getSchedule;
