@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import getSchedule from "./getSchedule";
+import getSchedule from "./GetSchedule";
 import WorkoutSchedule from "./WorkoutSchedule";
 import CardioSchedule from "./CardioSchedule";
 import DietSchedule from "./DietSchedule";
