@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 
 function SignupDark ()
 {
-    const axiosInstance = useAxiosInstance();
+    const {axiosInstance} = useAxiosInstance();
     const navigate = useNavigate();
     const [ formData, setFormData ] = useState( {
         name: "",
