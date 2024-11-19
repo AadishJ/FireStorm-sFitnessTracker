@@ -1,10 +1,11 @@
 import { createContext, useContext, useState } from "react";
-import axios from "../axiosInstance";
+import useAxiosInstance from "../useAxiosInstance";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ( { children, navigate } ) =>
 {
+    const { axiosInstance } = useAxiosInstance();
     const [ isAuthenticated, setIsAuthenticated ] = useState( false );
     const changeAuthenticated = ( state ) =>
     {
@@ -15,7 +16,7 @@ export const AuthProvider = ( { children, navigate } ) =>
     {
         try
         {
-            const res = await axios.post( "/dashboard", {}, {
+            const res = await axiosInstance.post( "/dashboard", {}, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -26,7 +27,9 @@ export const AuthProvider = ( { children, navigate } ) =>
             alert( err?.response?.data?.message );
         }
         localStorage.removeItem( "workoutName" );
-        localStorage.removeItem( "yogaWorkoutName" )
+        localStorage.removeItem( "yogaWorkoutName" );
+        localStorage.removeItem( "cardioWorkoutName" );
+        localStorage.removeItem( "dietPlanName" );
         localStorage.removeItem( "userName" );
         changeAuthenticated( false );
         setTimeout( () => navigate( "/" ), 100 );

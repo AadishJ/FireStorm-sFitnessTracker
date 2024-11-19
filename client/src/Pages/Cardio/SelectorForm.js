@@ -1,9 +1,10 @@
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import Exercises from "../../Assets/Data/CardioExercises.json";
 import { useAuth } from "../../Context/AuthContext";
 function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, exerciseAdded } )
 {
     const { logoutHandle } = useAuth();
+    const { axiosInstance } = useAxiosInstance();
     const handleChange = ( e ) =>
     {
         const { name, value } = e.target;
@@ -32,7 +33,7 @@ function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, ex
         e.preventDefault();
         try
         {
-            const res = await axios.post( '/cardio/scheduler', formData,
+            const res = await axiosInstance.post( '/cardio/scheduler', formData,
                 {
                     headers: {
                         'Content-Type': 'application/JSON',

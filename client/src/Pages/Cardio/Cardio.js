@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import ExerciseSelector from "./ExerciseSelector";
 import { useNavigate } from "react-router-dom";
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import { useAuth } from "../../Context/AuthContext";
 
 function Cardio ()
 {
     const { logoutHandle } = useAuth();
+    const { axiosInstance } = useAxiosInstance();
     const navigate = useNavigate();
     const week = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
     const [ isOpen, setIsOpen ] = useState( false );
@@ -36,7 +37,7 @@ function Cardio ()
             {
                 try
                 {
-                    const res = await axios.get( "/cardio/scheduler", {
+                    const res = await axiosInstance.get( "/cardio/scheduler", {
                         headers: {
                             "Content-Type": "application/json",
                         },
@@ -57,7 +58,7 @@ function Cardio ()
             }
             fetchData();
         }
-    }, [ logoutHandle, navigate, exerciseAdded ] );
+    }, [ logoutHandle, navigate, exerciseAdded, axiosInstance ] );
 
     const render = () =>
     {

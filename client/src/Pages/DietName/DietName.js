@@ -1,4 +1,4 @@
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
@@ -6,6 +6,7 @@ import { useAuth } from "../../Context/AuthContext";
 function DietName ()
 {
     const { handleLogout } = useAuth();
+    const { axiosInstance } = useAxiosInstance();
     const navigate = useNavigate();
     const [ planName, setPlanName ] = useState( "" );
     const [ allPlanNames, setAllPlanNames ] = useState( [] );
@@ -22,7 +23,7 @@ function DietName ()
         {
             try
             {
-                const res = await axios.get( "/diet/name", {
+                const res = await axiosInstance.get( "/diet/name", {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -39,7 +40,7 @@ function DietName ()
             }
         };
         getPlanNames();
-    }, [ navigate, handleLogout ] );
+    }, [ navigate, handleLogout, axiosInstance ] );
     const handleOptionChange = ( e ) =>
     {
         setPlanName( e.target.value );
@@ -55,7 +56,7 @@ function DietName ()
         {
             try
             {
-                await axios.post( "/diet/name", { value }, {
+                await axiosInstance.post( "/diet/name", { value }, {
                     headers: {
                         "Content-Type": "application/json",
                     },

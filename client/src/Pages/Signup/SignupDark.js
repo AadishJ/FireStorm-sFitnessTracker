@@ -1,4 +1,4 @@
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import { useState } from "react";
 import { MdDriveFileRenameOutline, MdEmail, MdPassword } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 
 function SignupDark ()
 {
+    const axiosInstance = useAxiosInstance();
     const navigate = useNavigate();
     const [ formData, setFormData ] = useState( {
         name: "",
@@ -23,7 +24,7 @@ function SignupDark ()
             const decoded = jwtDecode( res.credential );
             formData.email = decoded.email;
             formData.name = decoded.name;
-            await axios.post( "/signup", formData, {
+            await axiosInstance.post( "/signup", formData, {
                 headers:
                 {
                     "Content-Type": "application/json",
@@ -59,7 +60,7 @@ function SignupDark ()
         }
         try
         {
-            const response = await axios.post( "/signup", formData, {
+            const response = await axiosInstance.post( "/signup", formData, {
                 headers:
                 {
                     "Content-Type": "application/json",

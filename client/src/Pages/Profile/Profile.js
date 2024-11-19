@@ -1,8 +1,9 @@
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import { useEffect, useState } from "react";
 
 function Profile ()
 {
+    const { axiosInstance } = useAxiosInstance();
     const [ formValues, setFormValues ] = useState( {
         name: "",
         gender: "",
@@ -18,7 +19,7 @@ function Profile ()
         {
             try
             {
-                const res = await axios.get( "./profile", {
+                const res = await axiosInstance.get( "./profile", {
                     headers: {
                         "Content-Type": "JSON",
                     },
@@ -32,7 +33,7 @@ function Profile ()
             }
         }
         getFormValues();
-    }, [] )
+    }, [ axiosInstance ] )
     const handleChange = ( e ) =>
     {
         const { name, value } = e.target;
@@ -51,7 +52,7 @@ function Profile ()
                 ...formValues,
                 name: localStorage.getItem( "userName" ),
             };
-            const res = await axios.post( "/profile", updatedValues, {
+            const res = await axiosInstance.post( "/profile", updatedValues, {
                 headers: {
                     "Content-Type": "application/json",
                 },

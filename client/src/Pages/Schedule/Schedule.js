@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import getSchedule from "./GetSchedule";
+import getSchedule from "./getSchedule";
 import WorkoutSchedule from "./WorkoutSchedule";
 import CardioSchedule from "./CardioSchedule";
 import DietSchedule from "./DietSchedule";
 import EditorSetup from "../../UI/EditorSetup";
 import { useDate } from "../../Context/DateContext";
 import { useAuth } from "../../Context/AuthContext";
+import useAxiosInstance from "../../useAxiosInstance";
 
 function Schedule ()
 {
+    const {axiosInstance} = useAxiosInstance();
     const { selectedDate } = useDate();
     const {handleLogout} = useAuth();
     const [ gymSchedule, setGymSchedule ] = useState( [] );
@@ -22,14 +24,14 @@ function Schedule ()
     {
         const fetchData = async () =>
         {
-            const res = await getSchedule(selectedDate,handleLogout);
+            const res = await getSchedule(selectedDate,handleLogout,axiosInstance);
             setGymSchedule( res.gymScheduleData );
             setYogaSchedule( res.yogaScheduleData );
             setDietSchedule( res.dietScheduleData );
             setCardioSchedule( res.cardioScheduleData );
         }
         fetchData();
-    }, [selectedDate,handleLogout] );
+    }, [selectedDate,handleLogout,axiosInstance] );
     const render = ()=>
     {
         if ( editor[0] )
@@ -118,7 +120,7 @@ function Schedule ()
                     </div>
                     </div>
                     <div className="w-full flex items-center justify-center h-20 p-20 pl-28">
-                        <button type="submit" className="w-2/5 h-20 bg-blue-400 rounded-xl text-white text-2xl font-bold font-roboto">Save</button>
+                        <button type="submit" className="w-2/5 h-20 ml-24 bg-blue-400 rounded-xl text-white text-2xl font-bold font-roboto">Save</button>
                     </div>
                 </form>
             </div>

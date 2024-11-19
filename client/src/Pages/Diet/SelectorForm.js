@@ -1,4 +1,4 @@
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import DietData from "../../Assets/Data/Diet.json";
 import { useAuth } from "../../Context/AuthContext";
 import { useEffect } from "react";
@@ -6,7 +6,7 @@ import { useEffect } from "react";
 function SelectorForm ( { setFormData, formData, setIsOpen, setFoodAdded, foodAdded } )
 {
     const { logoutHandle } = useAuth();
-
+    const { axiosInstance } = useAxiosInstance();
     useEffect( () =>
     {
         if ( formData.food && formData.quantity > 0 )
@@ -47,7 +47,7 @@ function SelectorForm ( { setFormData, formData, setIsOpen, setFoodAdded, foodAd
         e.preventDefault();
         try
         {
-            const res = await axios.post( '/diet/scheduler', formData, {
+            const res = await axiosInstance.post( '/diet/scheduler', formData, {
                 headers: {
                     'Content-Type': 'application/JSON',
                 }

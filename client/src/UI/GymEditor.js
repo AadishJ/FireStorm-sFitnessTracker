@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import axios from "../axiosInstance";
+import useAxiosInstance from "../useAxiosInstance";
 import { useDate } from "../Context/DateContext";
 import { useAuth } from "../Context/AuthContext";
 function GymEditor ( { id, exerciseName } )
 {
     const { selectedDate } = useDate();
     const { handleLogout } = useAuth();
+    const {axiosInstance} = useAxiosInstance();
     const [ exercise, setExercise ] = useState( {} );
     const [ setsCount, setSetsCount ] = useState( null );
     const [ formData, setFormData ] = useState( { weight: [], metric: [], reps: [], sets: [], day: "", exercise: "", date: "", isDone: false, } );
@@ -15,7 +16,7 @@ function GymEditor ( { id, exerciseName } )
         {
             const fetchData = async () =>
             {
-                const res = await axios.get( "/workout", {
+                const res = await axiosInstance.get( "/workout", {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -70,7 +71,7 @@ function GymEditor ( { id, exerciseName } )
                 alert( err?.response?.data?.message || "Cannot fetch exercise" );
             }
         }
-    }, [ id, selectedDate, setsCount, exerciseName ] );
+    }, [ id, selectedDate, setsCount, exerciseName, handleLogout, axiosInstance ] );
     const handleChange = ( e ) =>
     {
         const { name, value, dataset } = e.target;
@@ -88,7 +89,7 @@ function GymEditor ( { id, exerciseName } )
         e.preventDefault();
         try
         {
-            const res = await axios.post( "/workout", formData, {
+            const res = await axiosInstance.post( "/workout", formData, {
                 headers: {
                     "Content-Type": "application/json",
                 }

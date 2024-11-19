@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import ExerciseSelector from "./ExerciseSelector";
 import { useNavigate } from "react-router-dom";
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import { useAuth } from "../../Context/AuthContext";
 
 function Yoga ()
 {
     const { logoutHandle } = useAuth();
+    const { axiosInstance}  = useAxiosInstance();
     const navigate = useNavigate();
     const week = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
     const [ isOpen, setIsOpen ] = useState( false );
@@ -36,7 +37,7 @@ function Yoga ()
             {
                 try
                 {
-                    const res = await axios.get( "/yoga/scheduler", {
+                    const res = await axiosInstance.get( "/yoga/scheduler", {
                         headers: {
                             "Content-Type": "application/json",
                         },
@@ -57,7 +58,7 @@ function Yoga ()
             }
             fetchData();
         }
-    }, [ logoutHandle, navigate, exerciseAdded ] );
+    }, [ logoutHandle, navigate, exerciseAdded, axiosInstance ] );
 
     const render = () =>
     {

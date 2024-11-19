@@ -1,4 +1,4 @@
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
@@ -6,6 +6,7 @@ import { useAuth } from "../../Context/AuthContext";
 function YogaName ()
 {
     const { handleLogout } = useAuth();
+    const {axiosInstance} = useAxiosInstance();
     const navigate = useNavigate();
     const [ workoutName, setWorkoutName ] = useState( "" );
     const [ allWorkoutNames, setAllWorkoutNames ] = useState( [] );
@@ -22,7 +23,7 @@ function YogaName ()
         {
             try
             {
-                const res = await axios.get( "/yoga/name", {
+                const res = await axiosInstance.get( "/yoga/name", {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -39,7 +40,7 @@ function YogaName ()
             }
         };
         getWorkoutNames();
-    }, [ navigate, handleLogout ] );
+    }, [ navigate, handleLogout, axiosInstance ] );
     const handleOptionChange = ( e ) =>
     {
         setWorkoutName( e.target.value );
@@ -55,7 +56,7 @@ function YogaName ()
         {
             try
             {
-                await axios.post( "/yoga/name", { value }, {
+                await axiosInstance.post( "/yoga/name", { value }, {
                     headers: {
                         "Content-Type": "application/json",
                     },

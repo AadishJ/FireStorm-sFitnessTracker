@@ -23,14 +23,17 @@ import DietName from './Pages/DietName/DietName';
 import Error404 from './Pages/Error404/Error404';
 import Schedule from './Pages/Schedule/Schedule';
 import ScrollToTop from './RouteHandler/ScrollToTop';
+import Loading from './Pages/Loading/Loading';
+import { LoadingProvider } from './Context/LoadingContext';
 
 function App ()
 {
   const navigate = useNavigate();
   return (
-      <AuthProvider navigate={navigate}>
+    <AuthProvider navigate={navigate}>
       <RefreshHandler />
       <Navbar />
+      <Loading/>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/signup" element={<SignupDark />} />
@@ -59,8 +62,10 @@ function App ()
 }
 const Root = () => (
   <Router>
+    <LoadingProvider>
     <ScrollToTop/>
     <App />
+    </LoadingProvider>
   </Router>
 );
 

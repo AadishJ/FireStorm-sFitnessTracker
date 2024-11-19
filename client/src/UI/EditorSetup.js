@@ -16,15 +16,15 @@ function EditorSetup ({type,id,exercise,handleClose,editor,setEditor})
         }
         else if ( editor[ 1 ] )
         {
-            return <YogaEditor id={ id } exercise={exercise} />
+            return <YogaEditor id={ id } exerciseName={exercise} />
         }
         else if ( editor[ 2 ] )
         {
-            return <DietEditor id={ id } exercise={exercise} />
+            return <DietEditor id={ id } dietName={exercise} />
         }
         else if ( editor[ 3 ] )
         {
-            return <CardioEditor id={ id } exercise={ exercise } />
+            return <CardioEditor id={ id } exerciseName={ exercise } />
         } else
         {
             return null;

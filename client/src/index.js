@@ -10,12 +10,11 @@ import { ScheduleNameProvider } from './Context/ScheduleNameContext';
 let div = document.getElementById( "root" );
 const root = ReactDOM.createRoot( div );
 root.render(
-    <DateProvider>
+        <DateProvider>
             <ScheduleNameProvider>
                 <GoogleOAuthProvider clientId="1059449363627-44r4lag3a2omf9ni1qe9pgl50l404r21.apps.googleusercontent.com">
                     <App />
                 </GoogleOAuthProvider>
             </ScheduleNameProvider>
-    </DateProvider>
-
+        </DateProvider>
 );

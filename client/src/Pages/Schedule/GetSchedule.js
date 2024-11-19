@@ -1,10 +1,9 @@
-import axios from "../../axiosInstance";
-async function getSchedule (selectedDate,handleLogout)
+async function getSchedule ( selectedDate, handleLogout,axiosInstance )
 {
     const dayName = selectedDate.toLocaleDateString( 'en-US', { weekday: 'long' } );
     try
     {
-        const res = await axios.get( "/schedule", {
+        const res = await axiosInstance.get( "/schedule", {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -15,7 +14,7 @@ async function getSchedule (selectedDate,handleLogout)
                 cardioWorkoutName: localStorage.getItem( "cardioWorkoutName" ),
                 day: dayName,
             }
-        });
+        } );
         return res.data;
     } catch ( err )
     {
@@ -23,10 +22,10 @@ async function getSchedule (selectedDate,handleLogout)
         {
             alert( err?.response?.data?.message || "Cannot fetch schedule" );
             await handleLogout();
-        }else
-        alert(err?.response?.data?.message || "Cannot fetch schedule");
+        } else
+            alert( err?.response?.data?.message || "Cannot fetch schedule" );
     }
-
+    return null;
 }
 
 export default getSchedule;

@@ -1,4 +1,4 @@
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import { useState } from "react";
 import { MdEmail, MdPassword } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 function LoginDark ()
 {
     const navigate = useNavigate();
+    const { axiosInstance } = useAxiosInstance();
     const [ formData, setFormData ] = useState( {
         email: "",
         password: "",
@@ -20,7 +21,7 @@ function LoginDark ()
             formData.isGoogle = true;
             const decoded = jwtDecode( res.credential );
             formData.email = decoded.email;
-            await axios.post( "/login", formData, {
+            await axiosInstance.post( "/login", formData, {
                 headers:
                 {
                     "Content-Type": "application/json",
@@ -51,7 +52,7 @@ function LoginDark ()
         formData.isGoogle = false;
         try
         {
-            const response = await axios.post( "/login", formData, {
+            const response = await axiosInstance.post( "/login", formData, {
                 headers:
                 {
                     "Content-Type": "application/json",

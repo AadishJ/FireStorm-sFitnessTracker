@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import ExerciseSelector from "./ExerciseSelector";
 import { useNavigate } from "react-router-dom";
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import { useAuth } from "../../Context/AuthContext";
 function Workout ()
 {
     const { handleLogout } = useAuth();
+    const {axiosInstance} = useAxiosInstance();
     const navigate = useNavigate();
     const week = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
     const [ isOpen, setIsOpen ] = useState( false );
@@ -35,7 +36,7 @@ function Workout ()
             {
                 try
                 {
-                    const res = await axios.get( "/workout/scheduler", {
+                    const res = await axiosInstance.get( "/workout/scheduler", {
                         headers: {
                             "Content-Type": "application/json",
                         },
@@ -56,7 +57,7 @@ function Workout ()
             }
             fetchData();
         }
-    }, [ exerciseAdded, handleLogout, navigate ] );
+    }, [ exerciseAdded, handleLogout, navigate, axiosInstance ] );
 
     const render = () =>
     {

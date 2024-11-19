@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import FoodSelector from "./FoodSelector";
 import { useNavigate } from "react-router-dom";
-import axios from "../../axiosInstance";
+import useAxiosInstance from "../../useAxiosInstance";
 import { useAuth } from "../../Context/AuthContext";
 
 function Diet ()
 {
     const { logoutHandle } = useAuth();
     const navigate = useNavigate();
+    const { axiosInstance } = useAxiosInstance();
     const week = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
     const [ isOpen, setIsOpen ] = useState( false );
     const [ foodAdded, setFoodAdded ] = useState( false );
@@ -34,7 +35,7 @@ function Diet ()
             {
                 try
                 {
-                    const res = await axios.get( "/diet/scheduler", {
+                    const res = await axiosInstance.get( "/diet/scheduler", {
                         headers: {
                             "Content-Type": "application/json",
                         },
@@ -55,7 +56,7 @@ function Diet ()
             }
             fetchData();
         }
-    }, [ logoutHandle, navigate, foodAdded ] );
+    }, [ logoutHandle, navigate, foodAdded, axiosInstance ] );
 
     const render = () =>
     {
