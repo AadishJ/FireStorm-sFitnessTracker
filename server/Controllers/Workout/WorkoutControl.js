@@ -66,5 +66,5 @@ async function handleWorkoutPost (req,res)
 
 module.exports = {
     handleWorkoutGet,
-    handleWorkoutPost
+    handleWorkoutPost,
 }

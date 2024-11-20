@@ -138,8 +138,8 @@ function GymEditor ( { id, exerciseName } )
                                     <input type="number" name="weight" data-index={ i } className="w-20 text-black text-center pl-3 rounded-md" value={ formData.weight[ i ] } onChange={ handleChange } />
                                 </div>
                                 <div className="flex gap-2">
-                                    <select type="number" name="metric" data-index={ i } value={ formData.metric[ i ] } className="text-black w-14 rounded-md text-center" onChange={ handleChange }>
-                                        <option value="" disabled selected>Metric</option>
+                                    <select type="number" name="metric" data-index={ i } value={ formData.metric[ i ] } defaultValue={""} className="text-black w-14 rounded-md text-center" onChange={ handleChange }>
+                                        <option value="" disabled >Metric</option>
                                         <option value="kg">KG</option>
                                         <option value="lbs">LBS</option>
                                     </select>

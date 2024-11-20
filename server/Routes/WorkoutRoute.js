@@ -6,11 +6,11 @@ const { handleWorkoutSchedulerGet, handleWorkoutSchedulerPost } = require( "../C
 router
     .route( "/" )
     .get( ( req, res ) => handleWorkoutGet( req, res ) )
-    .post( ( req, res ) => handleWorkoutPost( req, res ) );
+    .post( ( req, res ) => handleWorkoutPost( req, res ) )
 router
     .route( "/name" )
     .get( ( req, res ) => handleWorkoutNameGet( req, res ) )
-    .post((req, res) => handleWorkoutNamePost( req, res ) );
+    .post( ( req, res ) => handleWorkoutNamePost( req, res ) );
 router
     .route( "/scheduler" )
     .get( ( req, res ) => handleWorkoutSchedulerGet( req, res ) )

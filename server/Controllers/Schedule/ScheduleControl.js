@@ -2,6 +2,10 @@ const gymSchedule = require( "../../Models/ScheduleModel" );
 const yogaSchedule = require( "../../Models/YogaScheduleModel" );
 const cardioSchedule = require( "../../Models/CardioScheduleModel" );
 const dietSchedule = require( "../../Models/DietScheduleModel" );
+const DailyWorkout = require( "../../Models/DailyWorkoutModel" );
+const DailyDiet = require( "../../Models/DailyDietModel" );
+const DailyYoga = require( "../../Models/DailyYogaModel" );
+const DailyCardio = require( "../../Models/DailyCardioModel" );
 async function handleScheduleGet ( req, res )
 {
     const userId = req.user._id;
@@ -21,7 +25,48 @@ async function handleScheduleGet ( req, res )
 
 async function handleSchedulePost ( req, res )
 {
-
+    const userId = req.user._id;
+    req.body.forEach( async ( { id, exercise,food, date, type, meal,isDone } ) =>
+    {
+        if ( type === "gym" )
+        {
+            try
+            {
+                const res = await DailyWorkout.findOneAndUpdate( { userId: userId, exercise, date }, { isDone: isDone } );
+            } catch ( err )
+            {
+                return res.status( 500 ).json( { message: "Cannot update gym schedule" } );
+            }
+        } else if ( type === "yoga" )
+        {
+            try
+            {
+                await DailyYoga.findOneAndUpdate( { userId: userId, exercise, date }, { isDone: isDone } );
+            } catch ( err )
+            {
+                return res.status( 500 ).json( { message: "Cannot update yoga schedule" } );
+            }
+        } else if ( type === "cardio" )
+        {
+            try
+            {
+                await DailyCardio.findOneAndUpdate( { userId: userId, exercise, date }, { isDone: isDone } );
+            } catch ( err )
+            {
+                return res.status( 500 ).json( { message: "Cannot update cardio schedule" } );
+            }
+        } else
+        {
+            try
+            {
+                await DailyDiet.findOneAndUpdate( { userId: userId, food, date, meal }, { isDone: isDone } );
+            } catch ( err )
+            {
+                return res.status( 500 ).json( { message: "Cannot update diet schedule" } );
+            }
+        }
+    } )
+    return res.status( 200 ).json( { message: "Schedule Updated Successfully" } );
 }
 
 module.exports = {
