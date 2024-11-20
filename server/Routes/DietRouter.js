@@ -2,7 +2,7 @@ const express = require( "express" );
 const router = express.Router();
 const { handleDietGet, handleDietPost } = require( "../Controllers/Diet/DietControl" )
 const { handleDietNameGet, handleDietNamePost } = require( "../Controllers/Diet/DietNameControl" )
-const { handleDietSchedulerGet, handleDietSchedulerPost } = require( "../Controllers/Diet/DietScheduleControl" )
+const { handleDietSchedulerGet, handleDietSchedulerPost,handleDietSchedulerDelete } = require( "../Controllers/Diet/DietScheduleControl" )
 router
     .route( "/" )
     .get( ( req, res ) => handleDietGet( req, res ) )
@@ -14,5 +14,6 @@ router
 router
     .route( "/scheduler" )
     .get( ( req, res ) => handleDietSchedulerGet( req, res ) )
-    .post( ( req, res ) => handleDietSchedulerPost( req, res ) );
+    .post( ( req, res ) => handleDietSchedulerPost( req, res ) )
+    .delete( ( req, res ) => handleDietSchedulerDelete( req, res ) );
 module.exports = router;

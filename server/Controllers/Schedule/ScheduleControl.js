@@ -16,7 +16,13 @@ async function handleScheduleGet ( req, res )
         const gymScheduleData = await gymSchedule.find( { userId: userId, workoutName: workoutName, day: day } );
         const dietScheduleData = await dietSchedule.find( { userId: userId, planName: dietPlanName, day: day } );
         const cardioScheduleData = await cardioSchedule.find( { userId: userId, workoutName: cardioWorkoutName, day: day } );
-        return res.status( 200 ).json( { gymScheduleData, yogaScheduleData, dietScheduleData, cardioScheduleData } );
+        const gymDailySchedule = await DailyWorkout.find( { userId: userId, day } );
+        const filteredGymDailySchedule = gymDailySchedule.filter( dailyExercise =>
+        {
+            return !gymScheduleData.some( scheduleExercise => scheduleExercise.exercise === dailyExercise.exercise );
+        } );
+        const allGymExercise = gymScheduleData.concat( filteredGymDailySchedule );
+        return res.status( 200 ).json( { allGymExercise, yogaScheduleData, dietScheduleData, cardioScheduleData } );
     } catch ( err )
     {
         return res.status( 500 ).json( { message: "Cannot fetch schedule" } );

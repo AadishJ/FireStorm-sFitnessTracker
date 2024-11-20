@@ -2,7 +2,7 @@ const express = require( "express" );
 const router = express.Router();
 const { handleYogaGet, handleYogaPost } = require( "../Controllers/Yoga/YogaControl" )
 const { handleYogaNameGet, handleYogaNamePost } = require( "../Controllers/Yoga/YogaNameControl" )
-const { handleYogaSchedulerGet, handleYogaSchedulerPost } = require( "../Controllers/Yoga/YogaScheduleControl" )
+const { handleYogaSchedulerGet, handleYogaSchedulerPost,handleYogaSchedulerDelete } = require( "../Controllers/Yoga/YogaScheduleControl" )
 router
     .route( "/" )
     .get( ( req, res ) => handleYogaGet( req, res ) )
@@ -14,5 +14,6 @@ router
 router
     .route( "/scheduler" )
     .get( ( req, res ) => handleYogaSchedulerGet( req, res ) )
-    .post( ( req, res ) => handleYogaSchedulerPost( req, res ) );
+    .post( ( req, res ) => handleYogaSchedulerPost( req, res ) )
+    .delete( ( req, res ) => handleYogaSchedulerDelete( req, res ) );
 module.exports = router;

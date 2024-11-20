@@ -21,7 +21,7 @@ const WorkoutRouter = require( "./Routes/WorkoutRoute" );
 const YogaRouter = require( "./Routes/YogaRoute" );
 const CardioRouter = require( "./Routes/CardioRoute" );
 const ProfileRouter = require( "./Routes/ProfileRoute" );
-const DietRouter = require( "./Routes/DIetRoute" );
+const DietRouter = require( "./Routes/DietRouter" );
 const ScheduleRouter = require( "./Routes/ScheduleRoute" );
 
 

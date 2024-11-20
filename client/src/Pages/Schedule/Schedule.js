@@ -7,6 +7,8 @@ import EditorSetup from "../../UI/EditorSetup";
 import { useDate } from "../../Context/DateContext";
 import { useAuth } from "../../Context/AuthContext";
 import useAxiosInstance from "../../useAxiosInstance";
+import GetScheduleNames from "./GetScheduleNames";
+import ExerciseSelector from "../../UI/WorkoutExerciseSelector";
 
 function Schedule ()
 {
@@ -21,18 +23,48 @@ function Schedule ()
     const [ editor, setEditor ] = useState( [ false, false, false, false ] );
     const [ id, setId ] = useState( "" );
     const [ data, setData ] = useState( [] );
+    const [ name, setName ] = useState( {} );
+    const [ workoutName, setWorkoutName ] = useState( "" );
+    const [ yogaWorkoutName, setYogaWorkoutName ] = useState( "" );
+    const [ dietPlanName, setDietPlanName ] = useState( "" );
+    const [ cardioWorkoutName, setCardioWorkoutName ] = useState( "" );
+    const [ exerciseAdded, setExerciseAdded ] = useState( false );
+    const [ formOpen, setFormOpen ] = useState( [false, false, false, false] );
+    const [ workoutFormValues, setWorkoutFormValues ] = useState( {
+        date:"",
+        day: "",
+        bodyPart: '',
+        exercise: '',
+        weight: '',
+        metric: 'kg',
+        reps: '',
+        sets: ''
+    } )
     useEffect( () =>
     {
         const fetchData = async () =>
         {
             const res = await getSchedule( selectedDate, handleLogout, axiosInstance );
-            setGymSchedule( res.gymScheduleData );
+            setGymSchedule( res.allGymExercise );
             setYogaSchedule( res.yogaScheduleData );
             setDietSchedule( res.dietScheduleData );
             setCardioSchedule( res.cardioScheduleData );
         }
         fetchData();
-    }, [ selectedDate, handleLogout, axiosInstance ] );
+    }, [ selectedDate, handleLogout, axiosInstance, dietPlanName, cardioWorkoutName, workoutName, yogaWorkoutName,exerciseAdded ] );
+    useEffect( () =>
+    {
+        const fetchNames = async () =>
+        {
+            const names = await GetScheduleNames( axiosInstance, handleLogout, setExerciseAdded );
+            setName( names );
+            setWorkoutName( localStorage.getItem( "workoutName" ) );
+            setYogaWorkoutName( localStorage.getItem( "yogaWorkoutName" ) );
+            setDietPlanName( localStorage.getItem( "dietPlanName" ) );
+            setCardioWorkoutName( localStorage.getItem( "cardioWorkoutName" ) );
+        }
+        fetchNames();
+    }, [ axiosInstance, handleLogout ] );
     const render = () =>
     {
         if ( editor[ 0 ] )
@@ -82,7 +114,7 @@ function Schedule ()
         e.preventDefault();
         try
         {
-            const res= await axiosInstance.post( "/schedule", data,
+            const res = await axiosInstance.post( "/schedule", data,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -104,13 +136,10 @@ function Schedule ()
     }
     const handleChange = ( e, id, exercise, type, meal ) =>
     {
-        console.log(meal);
         if ( e.currentTarget.checked )
         {
-            console.log(meal);
             if ( meal )
             {
-                console.log("asda");
                 setData( [ ...data,
                 {
                     _id: id,
@@ -141,8 +170,43 @@ function Schedule ()
             setData( newData );
         }
     }
+    const handleWorkoutNameChange = ( e ) =>
+    {
+        setWorkoutName( e.target.value );
+        localStorage.setItem( "workoutName", e.target.value );
+    }
+    const handleYogaNameChange = ( e ) =>
+    {
+        setYogaWorkoutName( e.target.value );
+        localStorage.setItem( "yogaWorkoutName", e.target.value );
+    }
+    const handleCardioNameChange = ( e ) =>
+    {
+        setCardioWorkoutName( e.target.value );
+        localStorage.setItem( "cardioWorkoutName", e.target.value );
+    }
+    const handleDietNameChange = ( e ) =>
+    {
+        setDietPlanName( e.target.value );
+        localStorage.setItem( "dietPlanName", e.target.value );
+    }
+    const render2 = ( e ) =>
+    {
+        if ( formOpen[ 0 ] )
+        {
+            return <ExerciseSelector isOpen={ formOpen[0] } setIsOpen={ setFormOpen } formData={ workoutFormValues } setFormData={ setWorkoutFormValues } setExerciseAdded={ setExerciseAdded } exerciseAdded={ exerciseAdded } />;
+        } else if ( formOpen[ 1 ] )
+        {
+
+        }
+        else
+        {
+            return null;
+        }
+    }
     return (
         <div>
+            { render2() }
             { render() }
             <div className="w-full min-h-screen bg-anotherPurple">
                 <div className="h-fit flex justify-center text-white text-4xl font-bold font-outfit mt-20 ml-28 mb-4 pt-6 pb-6">
@@ -155,19 +219,35 @@ function Schedule ()
                                 <div>
                                     Workout
                                 </div>
-                                <div className="text-sm flex gap-2 items-center hover:underline cursor-pointer hover:after:content-['ChangePlan']">
-                                    Current Plan: { localStorage.getItem( "workoutName" ) }, { localStorage.getItem( "yogaWorkoutName" ) }
+                                <div className="flex text-sm justify-between items-center w-full px-4">
+                                    <div>
+                                        <label htmlFor="">Current Workout Plan:</label>
+                                        <select name="" id="" className="bg-pink-600" value={ workoutName } onChange={ handleWorkoutNameChange }>
+                                            { name.workoutNames?.map( ( item, index ) => <option key={ index } value={ item.name }>{ item.name }</option> ) }
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="">Current Yoga Plan:</label>
+                                        <select name="" id="" className="bg-pink-600" value={ yogaWorkoutName } onChange={ handleYogaNameChange }>
+                                            { name.yogaNames?.map( ( item, index ) => <option key={ index } value={ item.name }>{ item.name }</option> ) }
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <WorkoutSchedule gymSchedule={ gymSchedule } yogaSchedule={ yogaSchedule } handleClick={ handleClick } handleChange={ handleChange } />
+                            <WorkoutSchedule gymSchedule={ gymSchedule } yogaSchedule={ yogaSchedule } handleClick={ handleClick } handleChange={ handleChange } setFormOpen={setFormOpen} />
                         </div>
                         <div className="w-2/6 border-4 border-yellow-500 h-fit rounded-xl">
                             <div className="w-full h-24 flex-col bg-yellow-500 flex items-center justify-center">
                                 <div>
                                     Cardio
                                 </div>
-                                <div className="text-sm flex gap-2 items-center hover:underline cursor-pointer hover:after:content-['ChangePlan']">
-                                    Current Plan: { localStorage.getItem( "cardioWorkoutName" ) }
+                                <div className="flex text-sm justify-center items-center w-full mx-8">
+                                    <div>
+                                        <label htmlFor="">Current Cardio Plan:</label>
+                                        <select name="" id="" className="bg-yellow-500" value={ cardioWorkoutName } onChange={ handleCardioNameChange }>
+                                            { name.cardioNames?.map( ( item, index ) => <option key={ index } value={ item.name }>{ item.name }</option> ) }
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <CardioSchedule cardioSchedule={ cardioSchedule } handleClick={ handleClick } handleChange={ handleChange } />
@@ -177,8 +257,13 @@ function Schedule ()
                                 <div>
                                     Diet
                                 </div>
-                                <div className="text-sm flex gap-2 items-center hover:underline cursor-pointer hover:after:content-['ChangePlan']">
-                                    Current Plan: { localStorage.getItem( "dietPlanName" ) }
+                                <div className="flex text-sm justify-center items-center w-full mx-8">
+                                    <div>
+                                        <label htmlFor="">Current Diet Plan:</label>
+                                        <select name="" id="" className="bg-cyan" value={ dietPlanName } onChange={ handleDietNameChange }>
+                                            { name.dietNames?.map( ( item, index ) => <option key={ index } value={ item.name }>{ item.name }</option> ) }
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <DietSchedule dietSchedule={ dietSchedule } handleClick={ handleClick } handleChange={ handleChange } />

@@ -67,9 +67,7 @@ async function handleDailySchedulePost ( req, res )
             const resCardio = await DailyCardioModel.findOne( { userId, exercise, date } );
             if ( !resCardio )
             {
-                console.log(userId,exercise,day,workoutName);
                 const resCardio2 = await CardioSchedule.findOne( { userId: userId, exercise, day, workoutName } );
-                console.log(resCardio2);
                 const resCardio3 = await DailyCardioModel.create( {
                     userId: userId,
                     date: date,
@@ -111,7 +109,6 @@ async function handleDailySchedulePost ( req, res )
     }
     catch ( err )
     {
-        console.log(err);
         return res.status( 500 ).json( { message: "Cannot update daily schedule" } );
     }
 }

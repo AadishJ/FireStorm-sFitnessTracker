@@ -4,6 +4,8 @@ import FoodSelector from "./FoodSelector";
 import { useNavigate } from "react-router-dom";
 import useAxiosInstance from "../../useAxiosInstance";
 import { useAuth } from "../../Context/AuthContext";
+import { RxCross2 } from "react-icons/rx";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
 function Diet ()
 {
@@ -79,6 +81,32 @@ function Diet ()
         localStorage.removeItem( "dietPlanName" );
         navigate( "/diet/name" );
     }
+    const handleDelete = async ( e ) =>
+    {
+        const data = {
+            food: e.currentTarget.dataset.food,
+            day: e.currentTarget.dataset.day,
+            scheduleName: localStorage.getItem( "dietPlanName" )
+        };
+        try
+        {
+                await axiosInstance.delete( "/diet/scheduler", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                data
+            } );
+            setFoodAdded( !foodAdded );
+        } catch ( err )
+        {
+            if ( err.response.status === 404 )
+            {
+                alert( err?.response?.data?.message );
+                // await handleLogout();
+            } else
+                alert( err?.response?.data?.message );
+        }
+    }
 
     return (
         <div>
@@ -87,7 +115,10 @@ function Diet ()
                 <div className="flex flex-col gap-4 items-center">
                     <div className="flex justify-between w-full items-center">
                         <div className="text-white text-2xl mb-4 self-center">Currently Editing: { formValues.name }</div>
-                        <div className="text-white text-md mb-4 hover:underline cursor-pointer" onClick={ handleChangeSchedule }>Change Selected Schedule</div>
+                        <div className="text-white text-md hover:underline cursor-pointer flex items-center" onClick={ handleChangeSchedule }>
+                            Change Selected Schedule
+                            <FaArrowUpRightFromSquare className="fill-white ml-2" />
+                        </div>
                     </div>
                     <div className="flex gap-2 text-white justify-center">
                         { week.map( ( day ) => (
@@ -105,7 +136,10 @@ function Diet ()
                                         {
                                             return (
                                                 <div key={ food._id } className="flex flex-col gap-2 items-center">
-                                                    <div className="border h-fit w-28 p-3 px-1 text-center">{ food.food }</div>
+                                                    <div className="border h-fit w-28 p-3 px-1 text-center relative group">
+                                                        <RxCross2 data-food={ food.food } data-day={ food.day } className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 fill-white m-1 cursor-pointer" onClick={ handleDelete } />
+                                                        { food.food }
+                                                    </div>
                                                 </div>
                                             );
                                         } else
@@ -126,7 +160,10 @@ function Diet ()
                                         {
                                             return (
                                                 <div key={ food._id } className="flex flex-col gap-2 items-center">
-                                                    <div className="border h-fit w-28 p-3 px-1 text-center">{ food.food }</div>
+                                                    <div className="border h-fit w-28 p-3 px-1 text-center relative group">
+                                                        <RxCross2 data-food={ food.food } data-day={ food.day } className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 fill-white m-1 cursor-pointer" onClick={ handleDelete } />
+                                                        { food.food }
+                                                    </div>
                                                 </div>
                                             );
                                         } else
@@ -147,7 +184,10 @@ function Diet ()
                                         {
                                             return (
                                                 <div key={ food._id } className="flex flex-col gap-2 items-center">
-                                                    <div className="border h-fit w-28 p-3 px-1 text-center">{ food.food }</div>
+                                                    <div className="border h-fit w-28 p-3 px-1 text-center relative group">
+                                                        <RxCross2 data-food={ food.food } data-day={ food.day } className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 fill-white m-1 cursor-pointer" onClick={ handleDelete } />
+                                                        { food.food }
+                                                    </div>
                                                 </div>
                                             );
                                         } else

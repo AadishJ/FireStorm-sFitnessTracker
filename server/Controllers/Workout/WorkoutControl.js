@@ -63,8 +63,30 @@ async function handleWorkoutPost (req,res)
         return res.status( 500 ).json( { message: "Cannot add workout" } );
     }
 }
-
+async function handleWorkoutPut ( req, res )
+{
+    const userId = req.user._id;
+    const { date, day, bodyPart, exercise, weight, metric, reps, sets } = req.body;
+    const setsInt = parseInt( sets, 10 );
+    try {
+        await dailyWorkoutModel.create( {
+            userId,
+            date,
+            day,
+            exercise,
+            sets:setsInt,
+            reps: Array( setsInt ).fill( reps ),
+            metric: Array( setsInt ).fill( metric ),
+            weight: Array( setsInt ).fill( weight ),
+            isDone: false,
+        } );
+        return res.status( 200 ).json( { message: "Exercise Added successfully" } );
+    } catch (err) {
+        return res.status( 500 ).json( { message: "Cannot add exercise" } );
+    }
+}
 module.exports = {
     handleWorkoutGet,
     handleWorkoutPost,
+    handleWorkoutPut
 }

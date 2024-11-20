@@ -1,10 +1,14 @@
-import useAxiosInstance from "../../useAxiosInstance";
-import Exercises from "../../Assets/Data/Exercises.json";
-import { useAuth } from "../../Context/AuthContext";
+import useAxiosInstance from "../useAxiosInstance";
+import Exercises from "../Assets/Data/Exercises.json";
+import { useAuth } from "../Context/AuthContext";
+import { useDate } from "../Context/DateContext";
+import { useEffect } from "react";
+
 function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, exerciseAdded } )
 {
     const { axiosInstance } = useAxiosInstance();
     const { handleLogout } = useAuth();
+    const { selectedDate } = useDate();
     const handleChange = ( e ) =>
     {
         const { name, value } = e.target;
@@ -26,20 +30,29 @@ function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, ex
             return newData;
         } );
     };
+    useEffect( () =>
+    {
+        setFormData( ( prevData ) => ( {
+            ...prevData,
+            date: selectedDate.toLocaleDateString( 'en-us' ),
+            day: selectedDate.toLocaleDateString( 'en-us', { weekday: 'long' } )
+        } ) );
+    }, [ selectedDate, setFormData ] );
+
     const handleSubmit = async ( e ) =>
     {
         e.preventDefault();
         try
         {
-            const res = await axiosInstance.post( '/workout/scheduler', formData,
+            const res = await axiosInstance.put( "/workout",
+                formData,
                 {
                     headers: {
-                        'Content-Type': 'application/JSON',
+                        'Content-Type': 'application/json'
                     }
-                }
-            );
+                } )
+            alert( res.data.message );
             setExerciseAdded( !exerciseAdded );
-            alert( res?.data.message );
         } catch ( err )
         {
             if ( err.response.status === 404 )
@@ -49,13 +62,13 @@ function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, ex
             } else
                 alert( err?.response?.data?.message );
         }
-        setFormData( { name: "", day: "", bodyPart: "", exercise: "", weight: "", metric: "kg", reps: "", sets: "" } );
-        setIsOpen( false );
+        setFormData( { date: "", day: "", bodyPart: "", exercise: "", weight: "", metric: "kg", reps: "", sets: "" } );
+        setIsOpen( [false,false,false,false] );
     }
     return (
         <div>
             <div className="text-center text-2xl font-outfit mb-4">Exercise Selector</div>
-            <form className="flex flex-col gap-2 text-lg" onSubmit={ handleSubmit }>
+            <form className="flex flex-col gap-2 text-lg font-normal" onSubmit={ handleSubmit }>
                 <label className="text-lg">Select Body Part</label>
                 <select type="text" required name="bodyPart" id="bodyPart" value={ formData.bodyPart } onChange={ handleChange } className=" p-2 rounded w-72 text-black">
                     <option value="" defaultChecked>Select Body Part</option>

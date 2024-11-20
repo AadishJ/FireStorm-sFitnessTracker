@@ -2,7 +2,7 @@ const express = require( "express" );
 const router = express.Router();
 const { handleCardioGet, handleCardioPost } = require( "../Controllers/Cardio/CardioControl" )
 const { handleCardioNameGet, handleCardioNamePost } = require( "../Controllers/Cardio/CardioNameControl" )
-const { handleCardioSchedulerGet, handleCardioSchedulerPost } = require( "../Controllers/Cardio/CardioScheduleControl" )
+const { handleCardioSchedulerGet, handleCardioSchedulerPost, handleCardioSchedulerDelete } = require( "../Controllers/Cardio/CardioScheduleControl" )
 router
     .route( "/" )
     .get( ( req, res ) => handleCardioGet( req, res ) )
@@ -14,5 +14,6 @@ router
 router
     .route( "/scheduler" )
     .get( ( req, res ) => handleCardioSchedulerGet( req, res ) )
-    .post( ( req, res ) => handleCardioSchedulerPost( req, res ) );
+    .post( ( req, res ) => handleCardioSchedulerPost( req, res ) )
+    .delete( ( req, res ) => handleCardioSchedulerDelete( req, res ) );
 module.exports = router;

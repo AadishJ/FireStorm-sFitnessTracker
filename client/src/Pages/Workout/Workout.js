@@ -4,10 +4,12 @@ import ExerciseSelector from "./ExerciseSelector";
 import { useNavigate } from "react-router-dom";
 import useAxiosInstance from "../../useAxiosInstance";
 import { useAuth } from "../../Context/AuthContext";
+import { RxCross2 } from "react-icons/rx";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 function Workout ()
 {
     const { handleLogout } = useAuth();
-    const {axiosInstance} = useAxiosInstance();
+    const { axiosInstance } = useAxiosInstance();
     const navigate = useNavigate();
     const week = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
     const [ isOpen, setIsOpen ] = useState( false );
@@ -80,7 +82,32 @@ function Workout ()
         localStorage.removeItem( "workoutName" );
         navigate( "/workout/name" );
     }
-
+    const handleDelete = async ( e ) =>
+    {
+        const data = {
+            exercise: e.currentTarget.dataset.exercise,
+            day: e.currentTarget.dataset.day,
+            scheduleName: localStorage.getItem( "workoutName" )
+        };
+        try
+        {
+                await axiosInstance.delete( "/workout/scheduler", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                data
+            } );
+            setExerciseAdded( !exerciseAdded );
+        } catch ( err )
+        {
+            if ( err.response.status === 404 )
+            {
+                alert( err?.response?.data?.message );
+                // await handleLogout();
+            } else
+                alert( err?.response?.data?.message );
+        }
+    }
     return (
         <div>
             { render() }
@@ -88,8 +115,11 @@ function Workout ()
                 <div className="flex flex-col gap-4 items-center">
                     <div className="flex justify-between w-full items-center">
                         <div className="text-white text-2xl mb-4 self-center">Currently Editing: { formValues.name }</div>
-                        <div className="text-white text-md mb-4 hover:underline cursor-pointer" onClick={ handleChangeSchedule }>Change Selected Schedule</div>
-                    </div>                    <div className="flex gap-2 text-white justify-center">
+                        <div className="text-white text-md hover:underline cursor-pointer flex items-center" onClick={ handleChangeSchedule }>
+                            Change Selected Schedule
+                            <FaArrowUpRightFromSquare className="fill-white ml-2" />
+                        </div>                    </div>
+                    <div className="flex gap-2 text-white justify-center">
                         { week.map( ( day ) => (
                             <div key={ day } className="flex flex-col gap-2 items-center">
                                 <div className="border h-fit w-28 p-3 text-center relative group cursor-pointer bg-brightPurple" onClick={ handleClick } data-value={ day }>
@@ -102,7 +132,10 @@ function Workout ()
                                     {
                                         return (
                                             <div key={ exercise._id } className="flex flex-col gap-2 items-center">
-                                                <div className="border h-fit w-28 p-3 px-1 text-center">{ exercise.exercise }</div>
+                                                <div className="border h-fit w-28 p-3 px-1 text-center relative group">
+                                                    <RxCross2 data-exercise={exercise.exercise} data-day={exercise.day} className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 fill-white m-1 cursor-pointer" onClick={handleDelete}/>
+                                                    { exercise.exercise }
+                                                </div>
                                             </div>
                                         );
                                     } else

@@ -29,8 +29,22 @@ async function handleDietSchedulerPost ( req, res )
         return res.status( 500 ).json( { message: "Cannot add food" } );
     }
 }
+async function handleDietSchedulerDelete ( req, res )
+{
+    const userId = req.user._id;
+    const { food, day, scheduleName } = req.body;
+    try
+    {
+        const reqDel = await schedule.deleteOne( { userId, food, day, planName: scheduleName } );
+        return res.status( 200 ).json( { message: "Food Deleted Successfully" } );
+    } catch ( err )
+    {
+        return res.status( 500 ).json( { message: "Cannot delete food" } );
+    }
+}
 
 module.exports = {
     handleDietSchedulerGet,
-    handleDietSchedulerPost
+    handleDietSchedulerPost,
+    handleDietSchedulerDelete,
 };

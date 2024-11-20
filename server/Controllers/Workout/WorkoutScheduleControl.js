@@ -28,8 +28,21 @@ async function handleWorkoutSchedulerPost ( req, res )
         return res.status( 500 ).json( { message: "Cannot add exercise" } );
     }
 }
-
+async function handleWorkoutSchedulerDelete ( req, res )
+{
+    const userId = req.user._id;
+    const {exercise,day,scheduleName} = req.body;
+    try
+    {
+        const reqDel = await gymSchedule.deleteOne( { userId, exercise, day, workoutName: scheduleName } );
+        return res.status( 200 ).json( { message: "Exercise Deleted Successfully" } );
+    } catch ( err )
+    {
+        return res.status( 500 ).json( { message: "Cannot delete exercise" } );
+    }
+}
 module.exports = {
     handleWorkoutSchedulerGet,
     handleWorkoutSchedulerPost,
+    handleWorkoutSchedulerDelete,
 };
