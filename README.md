@@ -2,7 +2,7 @@
 FireStorm's Fitness Tracker is a web application designed to help users track their fitness activities, monitor progress, and achieve their fitness goals.
 
 ## Available at 
-### [FireStorm's Fitness Tracker](https://firestormsfitnesstracker.netlify.app)
+[FireStorm's Fitness Tracker](https://firestormsfitnesstracker.netlify.app)
 
 ## Features
 
