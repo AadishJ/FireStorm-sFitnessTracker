@@ -22,7 +22,25 @@ async function handleScheduleGet ( req, res )
             return !gymScheduleData.some( scheduleExercise => scheduleExercise.exercise === dailyExercise.exercise );
         } );
         const allGymExercise = gymScheduleData.concat( filteredGymDailySchedule );
-        return res.status( 200 ).json( { allGymExercise, yogaScheduleData, dietScheduleData, cardioScheduleData } );
+        const cardioDailySchedule = await DailyCardio.find( { userId: userId, day } );
+        const filteredCardioDailySchedule = cardioDailySchedule.filter( dailyExercise =>
+        {
+            return !cardioScheduleData.some( scheduleExercise => scheduleExercise.exercise === dailyExercise.exercise );
+        } );
+        const allCardioExercise = cardioScheduleData.concat( filteredCardioDailySchedule );
+        const yogaDailySchedule = await DailyYoga.find( { userId: userId, day } );
+        const filteredYogaDailySchedule = yogaDailySchedule.filter( dailyExercise =>
+        {
+            return !yogaScheduleData.some( scheduleExercise => scheduleExercise.exercise === dailyExercise.exercise );
+        } );
+        const allYogaExercise = yogaScheduleData.concat( filteredYogaDailySchedule );
+        const dietDailySchedule = await DailyDiet.find( { userId, day } );
+        const filteredDietDailySchedule = dietDailySchedule.filter( dailyFood =>
+        {
+            return !dietScheduleData.some( scheduleFood => scheduleFood.food === dailyFood.food );
+        } );
+        const allDietFood = dietScheduleData.concat( filteredDietDailySchedule );
+        return res.status( 200 ).json( { allGymExercise, allYogaExercise, allDietFood, allCardioExercise } );
     } catch ( err )
     {
         return res.status( 500 ).json( { message: "Cannot fetch schedule" } );

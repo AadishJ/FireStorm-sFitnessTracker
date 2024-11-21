@@ -1,6 +1,6 @@
 const CardioSchedule = require( "../../Models/CardioScheduleModel" );
 const DailyCardioModel = require( "../../Models/DailyCardioModel" );
-async function handleCardioGet (req,res)
+async function handleCardioGet ( req, res )
 {
 
     const userId = req.user._id;
@@ -25,7 +25,7 @@ async function handleCardioGet (req,res)
     }
 }
 
-async function handleCardioPost (req,res)
+async function handleCardioPost ( req, res )
 {
     const { exercise, hr, min, sec, sets, day, date, isDone } = req.body;
     const userId = req.user._id;
@@ -62,8 +62,34 @@ async function handleCardioPost (req,res)
         return res.status( 500 ).json( { message: "Cannot update exercise" } );
     }
 }
+async function handleCardioPut ( req, res )
+{
+
+    const userId = req.user._id;
+    const { date, day, types, exercise, hr, min, sec, sets } = req.body;
+    const setsInt = parseInt( sets, 10 );
+    try
+    {
+        await DailyCardioModel.create( {
+            userId,
+            date,
+            day,
+            exercise,
+            sets: setsInt,
+            hr: Array( setsInt ).fill( hr ),
+            min: Array( setsInt ).fill( min ),
+            sec: Array( setsInt ).fill( sec ),
+            isDone: false,
+        } );
+        return res.status( 200 ).json( { message: "Exercise Added successfully" } );
+    } catch ( err )
+    {
+        return res.status( 500 ).json( { message: "Cannot add exercise" } );
+    }
+}
 
 module.exports = {
     handleCardioGet,
-    handleCardioPost
+    handleCardioPost,
+    handleCardioPut,
 }

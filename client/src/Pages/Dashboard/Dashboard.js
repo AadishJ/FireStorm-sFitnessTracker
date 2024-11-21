@@ -1,7 +1,7 @@
 import React from "react";
 import MySchedule from "./MySchedule";
 import DietWorkoutChart from "./DietWorkoutChart";
-import MyGoals from "./MyGoals";
+// import MyGoals from "./MyGoals";
 import 'react-circular-progressbar/dist/styles.css';
 import ProgressCircles from "./ProgressCircles";
 
@@ -46,7 +46,7 @@ function Dashboard ()
                 </div>
                 <div className="flex justify-between items-center gap-4">
                         <DietWorkoutChart />
-                        <MyGoals />
+                        {/* <MyGoals /> */}
                 </div>
 
             </div>

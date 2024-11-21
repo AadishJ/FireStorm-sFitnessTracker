@@ -1,8 +1,9 @@
+import { FaPlus } from "react-icons/fa";
 import { useAuth } from "../../Context/AuthContext";
 import { useDate } from "../../Context/DateContext";
 import useAxiosInstance from "../../useAxiosInstance";
 
-function DietSchedule ({ dietSchedule, handleClick,handleChange })
+function DietSchedule ({ dietSchedule, handleClick,handleChange,setFormOpen })
 {
     const { axiosInstance } = useAxiosInstance();
     const { handleLogout } = useAuth();
@@ -45,10 +46,14 @@ function DietSchedule ({ dietSchedule, handleClick,handleChange })
             }
         }
     }
-
+    const handleFoodOpen = ()=>
+    {
+        setFormOpen( [ false, false, false, true ] );   
+    }
     return (
         <div className="w-full min-h-screen h-full bg-gray-300 rounded-b-lg">
             <div className="flex flex-col gap-2 items-center pt-8">
+                <div onClick={ handleFoodOpen } className="cursor-pointer"><FaPlus className="fill-cyan" /></div>
                 <div className="text-black  border-b-2 w-80 text-center border-black">Breakfast</div>
                 { dietSchedule.map( ( { _id, food,meal } ) =>
                 {

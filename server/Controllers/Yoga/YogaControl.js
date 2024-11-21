@@ -61,8 +61,34 @@ async function handleYogaPost ( req, res )
         return res.status( 500 ).json( { message: "Cannot update exercise" } );
     }
 }
+async function handleYogaPut ( req, res )
+{
+
+    const userId = req.user._id;
+    const { date, day, types, exercise, hr, min, sec, sets } = req.body;
+    const setsInt = parseInt( sets, 10 );
+    try
+    {
+        await DailyYogaModel.create( {
+            userId,
+            date,
+            day,
+            exercise,
+            sets: setsInt,
+            hr: Array( setsInt ).fill( hr ),
+            min: Array( setsInt ).fill( min ),
+            sec: Array( setsInt ).fill( sec ),
+            isDone: false,
+        } );
+        return res.status( 200 ).json( { message: "Exercise Added successfully" } );
+    } catch ( err )
+    {
+        return res.status( 500 ).json( { message: "Cannot add exercise" } );
+    }
+}
 
 module.exports = {
     handleYogaGet,
-    handleYogaPost
+    handleYogaPost,
+    handleYogaPut
 }

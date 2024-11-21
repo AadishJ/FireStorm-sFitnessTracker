@@ -2,7 +2,6 @@ import { FaDumbbell } from "react-icons/fa";
 import { IoIosArrowDroprightCircle, IoIosLogOut } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
-
 function SidebarClose ( { menuItems, selected, setSelected, handleOpen } )
 {
     const {handleLogout} = useAuth();

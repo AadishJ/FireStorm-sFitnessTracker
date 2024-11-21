@@ -8,7 +8,10 @@ import { useDate } from "../../Context/DateContext";
 import { useAuth } from "../../Context/AuthContext";
 import useAxiosInstance from "../../useAxiosInstance";
 import GetScheduleNames from "./GetScheduleNames";
-import ExerciseSelector from "../../UI/WorkoutExerciseSelector";
+import WorkoutExerciseSelector from "../../UI/WorkoutExerciseSelector";
+import CardioExerciseSelector from "../../UI/CardioExerciseSelector";
+import YogaExerciseSelector from "../../UI/YogaExerciseSelector";
+import FoodSelector from "../../UI/FoodSelector";
 
 function Schedule ()
 {
@@ -40,15 +43,43 @@ function Schedule ()
         reps: '',
         sets: ''
     } )
+    const [ cardioFormValues, setCardioFormValues ] = useState( {
+        date: "",
+        day: "",
+        types: '',
+        exercise: '',
+        sec: '0',
+        min: '0',
+        hr: '0',
+        sets: ''
+    } );
+    const [ yogaFormValues, setYogaFormValues ] = useState( {
+        date: "",
+        day: "",
+        types: '',
+        exercise: '',
+        hr: '0',
+        min: '0',
+        sec: '0',
+        sets: ''
+    } );
+    const [ foodFormValues, setFoodFormValues ] = useState( {
+        date: "",
+        day: "",
+        meal: '',
+        food: '',
+        quantity: '0',
+        calorie: '0',
+    })
     useEffect( () =>
     {
         const fetchData = async () =>
         {
             const res = await getSchedule( selectedDate, handleLogout, axiosInstance );
             setGymSchedule( res.allGymExercise );
-            setYogaSchedule( res.yogaScheduleData );
-            setDietSchedule( res.dietScheduleData );
-            setCardioSchedule( res.cardioScheduleData );
+            setYogaSchedule( res.allYogaExercise );
+            setDietSchedule( res.allDietFood );
+            setCardioSchedule( res.allCardioExercise );
         }
         fetchData();
     }, [ selectedDate, handleLogout, axiosInstance, dietPlanName, cardioWorkoutName, workoutName, yogaWorkoutName,exerciseAdded ] );
@@ -194,10 +225,16 @@ function Schedule ()
     {
         if ( formOpen[ 0 ] )
         {
-            return <ExerciseSelector isOpen={ formOpen[0] } setIsOpen={ setFormOpen } formData={ workoutFormValues } setFormData={ setWorkoutFormValues } setExerciseAdded={ setExerciseAdded } exerciseAdded={ exerciseAdded } />;
+            return <WorkoutExerciseSelector isOpen={ formOpen[0] } setIsOpen={ setFormOpen } formData={ workoutFormValues } setFormData={ setWorkoutFormValues } setExerciseAdded={ setExerciseAdded } exerciseAdded={ exerciseAdded } />;
         } else if ( formOpen[ 1 ] )
         {
-
+            return <CardioExerciseSelector isOpen={formOpen[1]} setIsOpen={setFormOpen} formData={cardioFormValues} setFormData={setCardioFormValues} setExerciseAdded={setExerciseAdded} exerciseAdded={exerciseAdded} />;
+        } else if ( formOpen[ 2 ] )
+        {
+            return <YogaExerciseSelector isOpen={formOpen[2]} setIsOpen={setFormOpen} formData={yogaFormValues} setFormData={setYogaFormValues} setExerciseAdded={setExerciseAdded} exerciseAdded={exerciseAdded} />;
+        } else if ( formOpen[ 3 ] )
+        {
+            return <FoodSelector isOpen={formOpen[3]} setIsOpen={setFormOpen} formData={foodFormValues} setFormData={setFoodFormValues} setFoodAdded={setExerciseAdded} foodAdded={exerciseAdded} />;
         }
         else
         {
@@ -250,7 +287,7 @@ function Schedule ()
                                     </div>
                                 </div>
                             </div>
-                            <CardioSchedule cardioSchedule={ cardioSchedule } handleClick={ handleClick } handleChange={ handleChange } />
+                            <CardioSchedule cardioSchedule={ cardioSchedule } handleClick={ handleClick } handleChange={ handleChange } setFormOpen={setFormOpen}/>
                         </div>
                         <div className="w-2/6 border-4 border-cyan h-fit rounded-xl">
                             <div className="w-full h-24 flex-col bg-cyan flex items-center justify-center">
@@ -266,7 +303,7 @@ function Schedule ()
                                     </div>
                                 </div>
                             </div>
-                            <DietSchedule dietSchedule={ dietSchedule } handleClick={ handleClick } handleChange={ handleChange } />
+                            <DietSchedule dietSchedule={ dietSchedule } handleClick={ handleClick } handleChange={ handleChange } setFormOpen={setFormOpen} />
                         </div>
                     </div>
                     <div className="w-full flex items-center justify-center h-20 p-20 pl-28">

@@ -60,8 +60,33 @@ async function handleDietPost (req,res)
         return res.status( 500 ).json( { message: "Cannot update diet" } );
     }
 }
+async function handleDietPut ( req, res )
+{
+
+    const userId = req.user._id;
+    const { date, day, meal, food, quantity,calorie } = req.body;
+    try
+    {
+        await DailyDiet.create( {
+            userId,
+            date,
+            day,
+            meal,
+            food,
+            quantity,
+            calorie,
+            isDone: false,
+        } );
+        return res.status( 200 ).json( { message: "Food Added successfully" } );
+    } catch ( err )
+    {
+        console.log(err);
+        return res.status( 500 ).json( { message: "Cannot add Food" } );
+    }
+}
 
 module.exports = {
     handleDietGet,
-    handleDietPost
+    handleDietPost,
+    handleDietPut,
 }

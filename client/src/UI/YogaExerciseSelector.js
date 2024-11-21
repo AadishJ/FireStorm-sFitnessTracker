@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import SelectorForm from './WorkoutSelectorForm';
+import SelectorForm from './YogaSelectorForm';
 import { TbXboxX } from "react-icons/tb";
 
-function WorkoutExerciseSelector ( { isOpen, setIsOpen, formData, setFormData, setExerciseAdded, exerciseAdded } )
+function YogaExerciseSelector ( { isOpen, setIsOpen, formData, setFormData, setExerciseAdded, exerciseAdded} )
 {
     const handleClose = () =>
     {
-        formData.bodyPart = '';
+        formData.types = '';
         formData.exercise = '';
-        formData.weight = '';
-        formData.reps = '';
+        formData.hr = '';
+        formData.min = '';
+        formData.sec = '';
         formData.sets = '';
         setIsOpen( [false,false,false,false] );
     };
@@ -35,12 +36,12 @@ function WorkoutExerciseSelector ( { isOpen, setIsOpen, formData, setFormData, s
             <div className="fixed inset-0 flex items-center justify-center z-50 text-white font-roboto">
                 <div className="absolute inset-0 bg-black opacity-30" onClick={ handleClose }></div>
                 <div className="bg-anotherPurple p-8 rounded-lg shadow-lg z-10 relative">
-                    <button onClick={ handleClose } className="absolute right-0 top-0"><TbXboxX className='w-7 h-7' /></button>
-                    <SelectorForm setFormData={ setFormData } formData={ formData } setIsOpen={ setIsOpen } setExerciseAdded={ setExerciseAdded } exerciseAdded={ exerciseAdded } />
+                    <button onClick={ handleClose } className="absolute right-0 top-0"><TbXboxX className='w-7 h-7'/></button>
+                    <SelectorForm setFormData={ setFormData } formData={ formData } setIsOpen={ setIsOpen } setExerciseAdded={ setExerciseAdded} exerciseAdded={exerciseAdded} />
                 </div>
             </div>
         </div>
     );
 }
 
-export default WorkoutExerciseSelector;
+export default YogaExerciseSelector;

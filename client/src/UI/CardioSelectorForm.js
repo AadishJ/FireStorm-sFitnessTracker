@@ -1,10 +1,13 @@
-import useAxiosInstance from "../../useAxiosInstance";
-import Exercises from "../../Assets/Data/CardioExercises.json";
-import { useAuth } from "../../Context/AuthContext";
+import useAxiosInstance from "../useAxiosInstance";
+import Exercises from "../Assets/Data/CardioExercises.json";
+import { useAuth } from "../Context/AuthContext";
+import { useEffect } from "react";
+import { useDate } from "../Context/DateContext";
 function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, exerciseAdded } )
 {
     const { handleLogout } = useAuth();
     const { axiosInstance } = useAxiosInstance();
+    const { selectedDate } = useDate();
     const handleChange = ( e ) =>
     {
         const { name, value } = e.target;
@@ -28,20 +31,29 @@ function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, ex
             return newData;
         } );
     };
+    useEffect( () =>
+    {
+        setFormData( ( prevData ) => ( {
+            ...prevData,
+            date: selectedDate.toLocaleDateString( 'en-us' ),
+            day: selectedDate.toLocaleDateString( 'en-us', { weekday: 'long' } )
+        } ) );
+    }, [ selectedDate, setFormData ] );
+
     const handleSubmit = async ( e ) =>
     {
         e.preventDefault();
         try
         {
-            const res = await axiosInstance.post( '/cardio/scheduler', formData,
+            const res = await axiosInstance.put( "/cardio",
+                formData,
                 {
                     headers: {
-                        'Content-Type': 'application/JSON',
+                        'Content-Type': 'application/json'
                     }
-                }
-            );
+                } )
+            alert( res.data.message );
             setExerciseAdded( !exerciseAdded );
-            alert( res?.data.message );
         } catch ( err )
         {
             if ( err.response.status === 404 )
@@ -51,9 +63,9 @@ function SelectorForm ( { setFormData, formData, setIsOpen, setExerciseAdded, ex
             } else
                 alert( err?.response?.data?.message );
         }
-        setFormData( { name: "", day: "", types: "", exercise: "", hr: "0", min: "0", sec: "0", sets: "" } );
-        setIsOpen( false );
-    }
+        setFormData( { date: "", day: "",types:"", exercise: "",hr:"0",min:"0",sec:"0", sets: "" } );
+        setIsOpen( [ false, false, false, false ] );
+    };
     return (
         <div>
             <div className="text-center text-2xl font-outfit mb-4">Exercise Selector</div>

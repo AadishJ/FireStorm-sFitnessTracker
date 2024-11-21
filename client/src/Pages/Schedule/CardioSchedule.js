@@ -1,8 +1,9 @@
+import { FaPlus } from "react-icons/fa";
 import { useAuth } from "../../Context/AuthContext";
 import { useDate } from "../../Context/DateContext";
 import useAxiosInstance from "../../useAxiosInstance";
 
-function CardioSchedule ( { cardioSchedule, handleClick, handleChange } )
+function CardioSchedule ( { cardioSchedule, handleClick, handleChange,setFormOpen } )
 {
     const { axiosInstance } = useAxiosInstance();
     const { handleLogout } = useAuth();
@@ -44,9 +45,14 @@ function CardioSchedule ( { cardioSchedule, handleClick, handleChange } )
             }
         }
     }
+    const handleWorkoutOpen = () =>
+    {
+        setFormOpen( [ false, true, false, false ] );
+    }
     return (
         <div className="w-full min-h-screen h-full bg-gray-300 rounded-b-lg">
             <div className="flex flex-col gap-2 items-center pt-8">
+                <div onClick={ handleWorkoutOpen } className="cursor-pointer"><FaPlus className="fill-yellow-500"/></div>
                 { cardioSchedule.map( ( { _id, exercise } ) =>
                 {
                     return (
