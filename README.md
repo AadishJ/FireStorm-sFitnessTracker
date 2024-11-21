@@ -61,4 +61,8 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 For any questions or feedback, please contact [jain.aadishj@gmail.com](mailto:yourname@example.com).
 
+## Creator Notes
 
+I really appriciate you checking out my work, it took countless of hours and all nighters to finish this one and it was very fun and I loved just seeing the website cometogether piece by piece.
+I made this as a learning project after learning MERN stack and it taught me a lot of things and I after its completition i want to move on to explore more technologies.
+P.S. it still lacks responsiveness :P
