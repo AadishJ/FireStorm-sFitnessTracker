@@ -63,6 +63,6 @@ For any questions or feedback, please contact [jain.aadishj@gmail.com](mailto:yo
 
 ## Creator Notes
 
-I really appreciate you checking out my work. It took countless hours and many all-nighters to finish this project. It was very fun, and I loved seeing the website come together piece by piece. I made this as a learning project after learning the MERN stack, and it taught me a lot of things. After its completion, I want to move on to explore more technologies.
+I really appreciate you checking out my work. It took countless hours and many all-nighters to finish, its still not complete and probably never will be cause I can think of a lot of features that I can still add to this project. It was very fun, and I loved seeing the website come together piece by piece. I made this as a learning project after learning the MERN stack, and it taught me a lot of things. After its completion, I want to move on to explore more technologies. Any feedback is much appriciated...
 
 P.S. It still lacks responsiveness :P
