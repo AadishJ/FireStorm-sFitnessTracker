@@ -167,8 +167,7 @@ function Schedule ()
     }
     const handleChange = ( e, id, exercise, type, meal ) =>
     {
-        if ( e.currentTarget.checked )
-        {
+        
             if ( meal )
             {
                 setData( [ ...data,
@@ -179,7 +178,8 @@ function Schedule ()
                     day: selectedDate.toLocaleDateString( 'en-US', { weekday: 'long' } ),
                     date: selectedDate.toLocaleDateString( 'en-US' ),
                     isDone: e.currentTarget.checked,
-                    meal: meal
+                    meal: meal,
+                    dietPlanName: localStorage.getItem( "dietPlanName" )
                 }
                 ] );
             } else
@@ -191,14 +191,13 @@ function Schedule ()
                     type: type,
                     day: selectedDate.toLocaleDateString( 'en-US', { weekday: 'long' } ),
                     date: selectedDate.toLocaleDateString( 'en-US' ),
-                    isDone: e.currentTarget.checked
+                    isDone: e.currentTarget.checked,
+                    workoutName: localStorage.getItem( "workoutName" ),
+                    yogaWorkoutName: localStorage.getItem( "yogaWorkoutName" ),
+                    cardioWorkoutName: localStorage.getItem( "cardioWorkoutName" ),
                 }
                 ] );
-            }
-        } else
-        {
-            const newData = data.filter( ( item ) => item._id !== id );
-            setData( newData );
+            
         }
     }
     const handleWorkoutNameChange = ( e ) =>
@@ -258,13 +257,13 @@ function Schedule ()
                                 </div>
                                 <div className="flex text-sm justify-between items-center w-full px-4">
                                     <div>
-                                        <label htmlFor="">Current Workout Plan:</label>
+                                        <label>Current Workout Plan:</label>
                                         <select name="" id="" className="bg-pink-600" value={ workoutName } onChange={ handleWorkoutNameChange }>
                                             { name.workoutNames?.map( ( item, index ) => <option key={ index } value={ item.name }>{ item.name }</option> ) }
                                         </select>
                                     </div>
                                     <div>
-                                        <label htmlFor="">Current Yoga Plan:</label>
+                                        <label>Current Yoga Plan:</label>
                                         <select name="" id="" className="bg-pink-600" value={ yogaWorkoutName } onChange={ handleYogaNameChange }>
                                             { name.yogaNames?.map( ( item, index ) => <option key={ index } value={ item.name }>{ item.name }</option> ) }
                                         </select>
@@ -280,7 +279,7 @@ function Schedule ()
                                 </div>
                                 <div className="flex text-sm justify-center items-center w-full mx-8">
                                     <div>
-                                        <label htmlFor="">Current Cardio Plan:</label>
+                                        <label>Current Cardio Plan:</label>
                                         <select name="" id="" className="bg-yellow-500" value={ cardioWorkoutName } onChange={ handleCardioNameChange }>
                                             { name.cardioNames?.map( ( item, index ) => <option key={ index } value={ item.name }>{ item.name }</option> ) }
                                         </select>
@@ -296,7 +295,7 @@ function Schedule ()
                                 </div>
                                 <div className="flex text-sm justify-center items-center w-full mx-8">
                                     <div>
-                                        <label htmlFor="">Current Diet Plan:</label>
+                                        <label>Current Diet Plan:</label>
                                         <select name="" id="" className="bg-cyan" value={ dietPlanName } onChange={ handleDietNameChange }>
                                             { name.dietNames?.map( ( item, index ) => <option key={ index } value={ item.name }>{ item.name }</option> ) }
                                         </select>

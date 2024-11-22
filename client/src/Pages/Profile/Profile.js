@@ -73,15 +73,15 @@ function Profile ()
                 <div className="text-4xl font-outfit font-semibold text-white mt-4 self-center">Profile</div>
                 <form onSubmit={ handleSubmit } className="text-white m-14 flex flex-col gap-6 flex-wrap justify-center items-start">
                     <div className="flex items-center justify-center gap-4">
-                        <label htmlFor="">Name</label>
+                        <label >Name</label>
                         <input disabled className="text-center font-roboto border-2 border-pinkPurple bg-backLightPurple placeholder:text-white placeholder:opacity-70 w-full h-8" type="text" name="name" value={ formValues.name } placeholder="Enter your Name" onChange={ handleChange } />
                     </div>
                     <div className="flex items-center justify-center gap-4">
-                        <label htmlFor="">Age</label>
+                        <label>Age</label>
                         <input className="text-center font-roboto border-2 border-pinkPurple bg-backLightPurple placeholder:text-white placeholder:opacity-70 w-12 h-8" name="age" value={ formValues.age } placeholder="Age" onChange={ handleChange } />
                     </div>
                     <div className="flex items-center justify-center gap-4">
-                        <label htmlFor="">Gender</label>
+                        <label>Gender</label>
                         <select className="text-center font-roboto border-2 border-pinkPurple bg-backLightPurple placeholder:text-white placeholder:opacity-70 w-24  h-8" name="gender" value={ formValues.gender } placeholder="Gender" onChange={ handleChange }>
                             <option value="" default disabled>Gender</option>
                             <option value="male">Male</option>
@@ -89,19 +89,19 @@ function Profile ()
                         </select>
                     </div>
                     <div className="flex items-center justify-center gap-4">
-                        <label htmlFor="">Height (in inch)</label>
+                        <label>Height (in inch)</label>
                         <input className="text-center pl-3 font-roboto border-2 border-pinkPurple bg-backLightPurple placeholder:text-white placeholder:opacity-70 w-24 h-8" name="height" type="number" value={ formValues.height } placeholder="Height" onChange={ handleChange } />
                     </div>
                     <div className="flex items-center justify-center gap-4">
-                        <label htmlFor="">Weight (in Kg)</label>
+                        <label>Weight (in Kg)</label>
                         <input className="text-center pl-3 font-roboto border-2 border-pinkPurple bg-backLightPurple placeholder:text-white placeholder:opacity-70 w-24 h-8" name="weight" type="number" value={ formValues.weight } placeholder="Weight" onChange={ handleChange } />
                     </div>
                     <div className="flex items-center justify-center gap-4">
-                        <label htmlFor="">Goal</label>
+                        <label>Goal</label>
                         <input className="text-center font-roboto border-2 border-pinkPurple bg-backLightPurple placeholder:text-white placeholder:opacity-70 w-32 pl-4 h-8" type="number" name="goal" value={ formValues.goal } placeholder="Goal Weight" onChange={ handleChange } />
                     </div>
                     <div className="flex items-center justify-center gap-4">
-                        <label htmlFor="">Activity Level</label>
+                        <label>Activity Level</label>
                         <select className="text-center pl-3 font-roboto border-2 border-pinkPurple bg-backLightPurple placeholder:text-white placeholder:opacity-70 w-44 h-8" name="activityLevel" value={ formValues.activityLevel } onChange={ handleChange }>
                             <option value="" default disabled>Activity Level</option>
                             <option value="sedentary">Sedentary</option>

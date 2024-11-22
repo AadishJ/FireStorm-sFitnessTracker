@@ -8,7 +8,21 @@ const gymModel = require( "../../Models/ScheduleModel" );
 const YogaSchedule = require( "../../Models/YogaScheduleModel" );
 async function handleDailyScheduleGet ( req, res )
 {
+    const userId = req.user._id;
+    const { date, type } = req.query;
+    try
+    {
+        const data1 = await DailyWorkout.find( { userId: userId, date: date } );
+        const data2 = await DailyYogaModel.find( { userId: userId, date: date } );
+        const data3 = await DailyCardioModel.find( { userId: userId, date: date } );
+        const data4 = await DailyDiet.find( { userId: userId, date: date } );
+        const data = data1.concat( data2, data3, data4 );
+        return res.status( 200 ).json( { data } );
 
+    } catch ( err )
+    {
+        return res.status( 500 ).json( { message: "Cannot fetch daily schedule" } );
+    }
 }
 
 async function handleDailySchedulePost ( req, res )
@@ -30,8 +44,8 @@ async function handleDailySchedulePost ( req, res )
                     date: date,
                     isDone: isDone,
                     sets: resGym.sets,
-                    reps: Array(resGym.sets).fill( resGym.reps ),
-                    metric: Array(resGym.sets).fill( resGym.metric ),
+                    reps: Array( resGym.sets ).fill( resGym.reps ),
+                    metric: Array( resGym.sets ).fill( resGym.metric ),
                 } );
                 return res.status( 200 ).json( { message: "Added to daily schedule" } );
             } else

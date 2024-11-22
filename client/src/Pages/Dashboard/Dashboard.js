@@ -11,7 +11,6 @@ function Dashboard ()
     const hour = now.getHours();
     const name = localStorage.getItem( "userName" ).split( " " )[ 0 ];
     let greeting;
-
     if ( hour >= 5 && hour < 12 )
     {
         greeting = "Good Morning";

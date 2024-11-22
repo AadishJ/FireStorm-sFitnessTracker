@@ -50,13 +50,28 @@ async function handleScheduleGet ( req, res )
 async function handleSchedulePost ( req, res )
 {
     const userId = req.user._id;
-    req.body.forEach( async ( { id, exercise,food, date, type, meal,isDone } ) =>
+    req.body.forEach( async ( { id, exercise,food, date, type, meal,dietPlanName,workoutName,yogaWorkoutName,cardioWorkoutName,isDone } ) =>
     {
         if ( type === "gym" )
         {
             try
             {
-                const res = await DailyWorkout.findOneAndUpdate( { userId: userId, exercise, date }, { isDone: isDone } );
+                const result = await DailyWorkout.findOneAndUpdate( { userId: userId, exercise, date }, { isDone: isDone } );
+                if(!result)
+                {
+                    const res = await gymSchedule.findOne( { userId, exercise, workoutName } );
+                    await DailyWorkout.create( {
+                        userId: userId,
+                        exercise: exercise,
+                        day: res.day,
+                        date: date,
+                        isDone: isDone,
+                        weight: Array( res.sets ).fill( res.weight ),
+                        sets: res.sets,
+                        reps: Array( res.sets ).fill( res.reps ),
+                        metric: Array( res.sets ).fill( res.metric ),
+                    } );
+                }
             } catch ( err )
             {
                 return res.status( 500 ).json( { message: "Cannot update gym schedule" } );
@@ -65,7 +80,22 @@ async function handleSchedulePost ( req, res )
         {
             try
             {
-                await DailyYoga.findOneAndUpdate( { userId: userId, exercise, date }, { isDone: isDone } );
+                const result = await DailyYoga.findOneAndUpdate( { userId: userId, exercise, date }, { isDone: isDone } );
+                if(!result)
+                {
+                    const res = await yogaSchedule.findOne( { userId, exercise, yogaWorkoutName } );
+                    await DailyYoga.create( {
+                        userId: userId,
+                        exercise: exercise,
+                        day: res.day,
+                        date: date,
+                        isDone: isDone,
+                        sets: res.sets,
+                        hr: Array( res.sets ).fill( res.hr ),
+                        min: Array( res.sets ).fill( res.min ),
+                        sec: Array( res.sets ).fill( res.sec ),
+                    } );
+                }
             } catch ( err )
             {
                 return res.status( 500 ).json( { message: "Cannot update yoga schedule" } );
@@ -74,7 +104,21 @@ async function handleSchedulePost ( req, res )
         {
             try
             {
-                await DailyCardio.findOneAndUpdate( { userId: userId, exercise, date }, { isDone: isDone } );
+                const result = await DailyCardio.findOneAndUpdate( { userId: userId, exercise, date }, { isDone: isDone } );
+                if(!result)
+                {
+                    const res = await cardioSchedule.findOne( { userId, exercise, cardioWorkoutName } );
+                    await DailyCardio.create( {
+                        userId: userId,
+                        exercise: exercise,
+                        day: res.day,
+                        date: date,
+                        isDone: isDone,
+                        hr: Array( res.sets ).fill( res.hr ),
+                        min: Array( res.sets ).fill( res.min ),
+                        sec: Array( res.sets ).fill( res.sec ),
+                    } );
+                }
             } catch ( err )
             {
                 return res.status( 500 ).json( { message: "Cannot update cardio schedule" } );
@@ -83,7 +127,21 @@ async function handleSchedulePost ( req, res )
         {
             try
             {
-                await DailyDiet.findOneAndUpdate( { userId: userId, food, date, meal }, { isDone: isDone } );
+                const result = await DailyDiet.findOneAndUpdate( { userId: userId, food, date, meal }, { isDone: isDone } );
+                if(!result)
+                {
+                    const res = await dietSchedule.findOne( { userId, food, dietPlanName } );
+                    await DailyDiet.create( {
+                        userId: userId,
+                        food: food,
+                        meal: meal,
+                        day: res.day,
+                        date: date,
+                        isDone: isDone,
+                        quantity: res.quantity,
+                        calorie: res.calorie,
+                    } );
+                }
             } catch ( err )
             {
                 return res.status( 500 ).json( { message: "Cannot update diet schedule" } );
